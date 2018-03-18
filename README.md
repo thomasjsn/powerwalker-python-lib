@@ -1,3 +1,10 @@
+## About
+There was no Linux software available for the PowerWalker PDU and ATS, but the [manufacturer](https://powerwalker.com/) was kind enough to supply me with what I needed to make my own library.
+
+I'm using a Raspberry Pi as my power manager, it is connected to both the PDU and ATS. I'm planning to use MQTT to communicate with it, and report power usage etc. to things like Home Assistant. For graphing I'll be storing values in Elasticsearch and displaying the data using Kibana.
+
+**Beta!** This library is still very much in beta, and the ATS support is not yet implemented, I'm working on it.
+
 ## PowerWalker PDU RC-16A IEC
 ![PowerWalker PDU RC-16A IEC](media/powerwalker_pdu_rc-16a.jpg)
 
