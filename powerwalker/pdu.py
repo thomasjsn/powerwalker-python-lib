@@ -1,7 +1,8 @@
 import serial
+from .pw_common import Powerwalker
 
 
-class PDU:
+class PDU(Powerwalker):
   def __init__(self, port):
     self.port = port
     self.serial = None
@@ -10,25 +11,12 @@ class PDU:
 
   def connect(self):
     """Connect to PDU device."""
-    self.serial = serial.Serial(
-      port=self.port,
-      baudrate=2400,
-      parity=serial.PARITY_NONE,
-      stopbits=serial.STOPBITS_ONE,
-      bytesize=serial.EIGHTBITS,
-      timeout=1
-    )
+    super().connect()
 
 
   def send(self, cmd):
     """Send custom command."""
-    self.serial.write(bytes(cmd + '\r', 'utf-8'))
-    response = self.serial.readline()
-
-    if response[0] != 40:
-      raise ValueError('Response malformed')
-
-    return response[1:].decode('utf-8').rstrip()
+    return super().send(cmd)
 
 
   def info(self):
@@ -67,7 +55,28 @@ class PDU:
       'temp'
     ]
 
+    status_keys = [
+      'a01_low_in_voltage',
+      'a02_high_in_voltage',
+      'f09_low_in_current',
+      'f10_high_in_current',
+      'f11_pwr_fail_aux1',
+      'f12_pwr_fail_aux2',
+      'b9_na',
+      'b8_na',
+      'out1_status',
+      'out2_status',
+      'out3_status',
+      'out4_status',
+      'out5_status',
+      'out6_status',
+      'out7_status',
+      'out8_status'
+    ]
+
     params = dict(zip(keys, values))
+
+    params['status'] = super().status_code(values[0], status_keys)
 
     return params
 

@@ -12,6 +12,15 @@ I'm using a Raspberry Pi as my power manager, it is connected to both the PDU an
 
 PowerWalker PDU RC-16A is designed to distribute AC power from a single source to 8 outputs with advanced load monitoring and local or remote ON/OFF switching control of individual outlets.
 
+### Output status codes
+0. Off
+1. On
+2. Shutdown active
+3. Shutdown imminent (S01-S08 code)
+4. Restore active
+5. Overload alarm (F01-F08 code)
+6. Locked (L01-L08 code)
+
 https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ## PowerWalker ATS
@@ -22,5 +31,6 @@ ATS (Automatic Transfer Switch) supports connection of two independent power sou
 https://powerwalker.com/?page=product&item=10120543&lang=en
 
 ## Scripts
-* `test.py`: Examples
+* `status.py`: Get and print statuses
+* `info.py`: Get and print device information
 * `mqtt.py`: Publishing values to a MQTT broker
