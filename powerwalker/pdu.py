@@ -82,7 +82,7 @@ class PDU(Powerwalker):
 
 
   def power_watt(self):
-    """Get and return active power measurements."""
+    """Get and return active power measurements for input and all outputs."""
     values = self.send('QPW').split(' ')
     keys = [
       'in_power',
@@ -102,7 +102,7 @@ class PDU(Powerwalker):
 
 
   def power_va(self):
-    """Get and return apparent power measurements."""
+    """Get and return apparent power measurements for input and all outputs."""
     values = self.send('QPVA').split(' ')
     keys = [
       'in_power',
