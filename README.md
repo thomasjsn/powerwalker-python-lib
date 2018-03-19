@@ -36,6 +36,50 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 5. Overload alarm (F01-F08 code)
 6. Locked (L01-L08 code)
 
+### Example responses
+
+#### Info
+```
+{   'in_out_phase': '1/1',
+    'in_socket_no': '1',
+    'model': '############PDU',
+    'nom_ip_voltage': '230',
+    'nom_op_voltage': '230',
+    'out_socket_no': '8'}
+```
+
+#### Status
+```
+{   'in_current': '02.1',
+    'in_freq': '49.8',
+    'in_voltage': '222.5',
+    'out1_current': '00.0',
+    'out2_current': '00.3',
+    'out3_current': '00.5',
+    'out4_current': '00.4',
+    'out5_current': '00.1',
+    'out6_current': '00.2',
+    'out7_current': '00.2',
+    'out8_current': '00.3',
+    'status': {   'a01_low_in_voltage': '0',
+                  'a02_high_in_voltage': '0',
+                  'f09_low_in_current': '0',
+                  'f10_high_in_current': '0',
+                  'f11_pwr_fail_aux1': '0',
+                  'f12_pwr_fail_aux2': '0',
+                  'na_b8': '0',
+                  'na_b9': '0',
+                  'out1_status': '1',
+                  'out2_status': '1',
+                  'out3_status': '1',
+                  'out4_status': '1',
+                  'out5_status': '1',
+                  'out6_status': '1',
+                  'out7_status': '1',
+                  'out8_status': '1'},
+    'temp': '36.0'}
+```
+
 ## PowerWalker ATS
 ![PowerWalker ATS](media/powerwalker_ats.jpg)
 
@@ -52,6 +96,48 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | `status()` | Get and return device statuses. |
 
 > Changing perferred input not yet implemented.
+
+### Example responses
+
+#### Info
+```
+{   'int_temp': '35.0',
+    'out_current': '002.2',
+    'out_load_pct': '013',
+    'src1_freq': '50.0',
+    'src1_voltage': '223.7',
+    'src2_freq': '50.0',
+    'src2_voltage': '223.7',
+    'sync_angle': '001'}
+```
+
+#### Status
+```
+{   'status': {   'aux_pwr1_fail': '0',
+                  'aux_pwr2_fail': '0',
+                  'na_c0': '0',
+                  'na_c1': '0',
+                  'na_c2': '0',
+                  'na_c3': '0',
+                  'na_c4': '0',
+                  'na_c5': '0',
+                  'na_c6': '0',
+                  'na_c7': '0',
+                  'on_fault_mode': '0',
+                  'on_src1': '1',
+                  'on_src2': '0',
+                  'overload_alarm': '0',
+                  'overload_fault': '0',
+                  'short_fault': '0',
+                  'src1_freq_bad': '0',
+                  'src1_voltage_bad': '0',
+                  'src1_wave_bad': '0',
+                  'src2_freq_bad': '0',
+                  'src2_preferred': '0',
+                  'src2_voltage_bad': '0',
+                  'src2_wave_bad': '0',
+                  'syncron_bad': '0'}}
+```
 
 ## Scripts
 * `status.py`: Get and print statuses
