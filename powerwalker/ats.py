@@ -50,7 +50,7 @@ class ATS(Powerwalker):
       'src1_wave_bad',
       'src2_voltage_bad',
       'src2_freq_bad',
-      'scr2_wave_bad',
+      'src2_wave_bad',
       'on_src2',
       'on_src1',
       'src2_preferred',

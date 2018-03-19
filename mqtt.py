@@ -1,5 +1,5 @@
 import powerwalker
-import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 
 # Define PDU and serial port
 pdu = powerwalker.PDU("/dev/ttyUSB0")
@@ -7,8 +7,16 @@ pdu = powerwalker.PDU("/dev/ttyUSB0")
 # Get actual power use in watt
 watts = pdu.power_watt()
 
-client = mqtt.Client('powerpi')
-client.connect("vm-mqtt", 1883, 60)
+msgs = []
 
 for watt in watts.items():
-  client.publish('homelab/power/' + watt[0], int(watt[1]))
+  msg = {
+    'topic': 'homelab/power/' + watt[0],
+    'payload': int(watt[1]),
+    'qos': 0,
+    'retain': False
+  }
+
+  msgs.append(msg)
+
+publish.multiple(msgs, hostname="vm-mqtt")
