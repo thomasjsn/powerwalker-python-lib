@@ -14,14 +14,16 @@ PowerWalker PDU RC-16A is designed to distribute AC power from a single source t
 
 https://powerwalker.com/?lang=en&page=product&item=10133001
 
-### Available commands
-* `connect`: Connect to PDU device.
-* `send`: Send custom command.
-* `info`: Get and return device information.
-* `status`: Get and return device statuses. (see codes below)
-* `power_watt`: Get and return active power measurements for input and all outputs.
-* `power_va`: Get and return apparent power measurements for input and all outputs.
-* `test`: Test PDU device, turn on all LEDs and the buzzer for 5 seconds.
+### Available methods
+| Method | Description |
+| --- | --- |
+| `connect()` | Connect to PDU device. |
+| `send(cmd)` | Send custom command. |
+| `info()` | Get and return device information |
+| `status()` | Get and return device statuses. (see codes below) |
+| `power_watt()` | Get and return active power measurements for input and all outputs. |
+| `power_va()` | Get and return apparent power measurements for input and all outputs. |
+| `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. |
 
 > Changing output states not yet implemented.
 
@@ -41,11 +43,13 @@ ATS (Automatic Transfer Switch) supports connection of two independent power sou
 
 https://powerwalker.com/?page=product&item=10120543&lang=en
 
-### Available commands
-* `connect`: Connect to PDU device.
-* `send`: Send custom command.
-* `info`: Get and return device information.
-* `status`: Get and return device statuses.
+### Available methods
+| Method | Description |
+| --- | --- |
+| `connect()` | Connect to PDU device. |
+| `send(cmd)` | Send custom command. |
+| `info()` | Get and return device information |
+| `status()` | Get and return device statuses. |
 
 > Changing perferred input not yet implemented.
 
