@@ -1,4 +1,4 @@
-## About
+# About
 There was no Linux software available for the PowerWalker PDU and ATS, but the [manufacturer](https://powerwalker.com/) was kind enough to supply me with what I needed to make my own library.
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab.jpg)
@@ -7,14 +7,14 @@ I'm using a Raspberry Pi as my power manager, it is connected to both the PDU an
 
 **Beta!** This library is still very much in beta, and not all features are implemented yet.
 
-## PowerWalker PDU RC-16A IEC
+# PowerWalker PDU RC-16A IEC
 ![PowerWalker PDU RC-16A IEC](media/powerwalker_pdu_rc-16a.jpg)
 
 PowerWalker PDU RC-16A is designed to distribute AC power from a single source to 8 outputs with advanced load monitoring and local or remote ON/OFF switching control of individual outlets.
 
 https://powerwalker.com/?lang=en&page=product&item=10133001
 
-### Available methods
+## Available methods
 | Method | Description |
 | --- | --- |
 | `connect()` | Connect to PDU device. |
@@ -27,7 +27,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 
 > Changing output states not yet implemented.
 
-#### Output status codes
+### Output status codes
 0. Off
 1. On
 2. Shutdown active
@@ -36,9 +36,9 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 5. Overload alarm (F01-F08 code)
 6. Locked (L01-L08 code)
 
-### Example responses
+## Example responses
 
-#### Info
+### Info
 ```
 {   'in_out_phase': '1/1',
     'in_socket_no': '1',
@@ -48,7 +48,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'out_socket_no': '8'}
 ```
 
-#### Status
+### Status
 ```
 {   'in_current': '02.1',
     'in_freq': '49.8',
@@ -80,14 +80,14 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'temp': '36.0'}
 ```
 
-## PowerWalker ATS
+# PowerWalker ATS
 ![PowerWalker ATS](media/powerwalker_ats.jpg)
 
 ATS (Automatic Transfer Switch) supports connection of two independent power sources. If primary power source fails, the secondary will automatically back up the connected load without any interruption. 
 
 https://powerwalker.com/?page=product&item=10120543&lang=en
 
-### Available methods
+## Available methods
 | Method | Description |
 | --- | --- |
 | `connect()` | Connect to PDU device. |
@@ -97,9 +97,9 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 
 > Changing perferred input not yet implemented.
 
-### Example responses
+## Example responses
 
-#### Info
+### Info
 ```
 {   'int_temp': '35.0',
     'out_current': '002.2',
@@ -111,7 +111,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
     'sync_angle': '001'}
 ```
 
-#### Status
+### Status
 ```
 {   'status': {   'aux_pwr1_fail': '0',
                   'aux_pwr2_fail': '0',
@@ -139,7 +139,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
                   'syncron_bad': '0'}}
 ```
 
-## Scripts
+# Scripts
 * `status.py`: Get and print statuses
 * `info.py`: Get and print device information
 * `mqtt.py`: Publishing values to a MQTT broker
