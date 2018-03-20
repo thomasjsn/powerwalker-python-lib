@@ -114,7 +114,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 {   'in_kwh': '000701.7',
     'out1_kwh': '000000.0',
     'out2_kwh': '000100.9',
-    'out3_pwh': '000011.8',
+    'out3_kwh': '000011.8',
     'out4_kwh': '000110.6',
     'out5_kwh': '000198.8',
     'out6_kwh': '000103.9',
