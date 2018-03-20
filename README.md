@@ -221,7 +221,7 @@ Run test sequence on PDU:
 * `cli.py`: Simple command line interface
 * `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
-* `pdu_power.py`: Get real and apparent power from the PDU.
+* `pdu_power.py`: Get real & apparent power and consumption from the PDU.
 * `status.py`: Get and print statuses.
 
 # Author
