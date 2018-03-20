@@ -1,4 +1,3 @@
-import serial
 from .pw_common import Powerwalker
 
 
@@ -85,15 +84,15 @@ class PDU(Powerwalker):
     """Get and return active power measurements for input and all outputs."""
     values = self.send('QPW').split(' ')
     keys = [
-      'in_power',
-      'out1_power',
-      'out2_power',
-      'out3_power',
-      'out4_power',
-      'out5_power',
-      'out6_power',
-      'out7_power',
-      'out8_power',
+      'in_w',
+      'out1_w',
+      'out2_w',
+      'out3_w',
+      'out4_w',
+      'out5_w',
+      'out6_w',
+      'out7_w',
+      'out8_w',
     ]
 
     params = dict(zip(keys, values))
@@ -105,20 +104,47 @@ class PDU(Powerwalker):
     """Get and return apparent power measurements for input and all outputs."""
     values = self.send('QPVA').split(' ')
     keys = [
-      'in_power',
-      'out1_power',
-      'out2_power',
-      'out3_power',
-      'out4_power',
-      'out5_power',
-      'out6_power',
-      'out7_power',
-      'out8_power',
+      'in_va',
+      'out1_va',
+      'out2_va',
+      'out3_va',
+      'out4_va',
+      'out5_va',
+      'out6_va',
+      'out7_va',
+      'out8_va',
     ]
 
     params = dict(zip(keys, values))
 
     return params
+
+
+  def power_cons(self):
+    """Get and return power consumption for input and all outputs."""
+    values = self.send('QEC').split(' ')
+    keys = [
+      'in_kwh',
+      'out1_kwh',
+      'out2_kwh',
+      'out3_pwh',
+      'out4_kwh',
+      'out5_kwh',
+      'out6_kwh',
+      'out7_kwh',
+      'out8_kwh',
+    ]
+
+    params = dict(zip(keys, values))
+
+    return params
+
+
+  def power_cons_clear(self):
+    """Clear power consumption values for input and all outputs."""
+    response = self.send('CEC')
+
+    return response
 
 
   def test(self):

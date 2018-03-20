@@ -15,15 +15,17 @@ PowerWalker PDU RC-16A is designed to distribute AC power from a single source t
 https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ## Available methods
-| Method | Description |
+| Method | Description | Type |
 | --- | --- |
-| `connect()` | Connect to PDU device. |
-| `send(cmd)` | Send custom command. |
-| `info()` | Get and return device information. |
-| `status()` | Get and return device statuses. (see codes below) |
-| `power_watt()` | Get and return active power measurements for input and all outputs. |
-| `power_va()` | Get and return apparent power measurements for input and all outputs. |
-| `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. |
+| `connect()` | Connect to PDU device. | - |
+| `send(cmd)` | Send custom command. | - |
+| `info()` | Get and return device information. | get |
+| `status()` | Get and return device statuses. (see codes below) | get |
+| `power_watt()` | Get and return active power measurements for input and all outputs. | get |
+| `power_va()` | Get and return apparent power measurements for input and all outputs. | get |
+| `power_cons()` | Get and return power consumption for input and all outputs. | get |
+| `power_cons_clear()` | Clear power consumption values for input and all outputs. | set |
+| `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | set |
 
 > Changing output states not yet implemented.
 
@@ -80,17 +82,43 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'temp': '36.0'}
 ```
 
-### `power_watt/va()`
+### `power_watt()`
 ```
-{   'in_power': '0253',
-    'out1_power': '0000',
-    'out2_power': '0042',
-    'out3_power': '0000',
-    'out4_power': '0080',
-    'out5_power': '0030',
-    'out6_power': '0044',
-    'out7_power': '0032',
-    'out8_power': '0000'}
+{   'in_w': '0246',
+    'out1_w': '0000',
+    'out2_w': '0042',
+    'out3_w': '0000',
+    'out4_w': '0080',
+    'out5_w': '0030',
+    'out6_w': '0044',
+    'out7_w': '0031',
+    'out8_w': '0000'}
+```
+
+### `power_va()`
+```
+{   'in_va': '0336',
+    'out1_va': '0000',
+    'out2_va': '0078',
+    'out3_va': '0000',
+    'out4_va': '0089',
+    'out5_va': '0034',
+    'out6_va': '0050',
+    'out7_va': '0063',
+    'out8_va': '0000'}
+```
+
+### `power_cons()`
+```
+{   'in_kwh': '000701.7',
+    'out1_kwh': '000000.0',
+    'out2_kwh': '000100.9',
+    'out3_pwh': '000011.8',
+    'out4_kwh': '000110.6',
+    'out5_kwh': '000198.8',
+    'out6_kwh': '000103.9',
+    'out7_kwh': '000046.2',
+    'out8_kwh': '000019.8'}
 ```
 
 # PowerWalker ATS
@@ -101,12 +129,12 @@ ATS (Automatic Transfer Switch) supports connection of two independent power sou
 https://powerwalker.com/?page=product&item=10120543&lang=en
 
 ## Available methods
-| Method | Description |
+| Method | Description | Type |
 | --- | --- |
-| `connect()` | Connect to PDU device. |
-| `send(cmd)` | Send custom command. |
-| `info()` | Get and return device information. |
-| `status()` | Get and return device statuses. |
+| `connect()` | Connect to PDU device. | - |
+| `send(cmd)` | Send custom command. | - |
+| `info()` | Get and return device information. | get |
+| `status()` | Get and return device statuses. | get |
 
 > Changing perferred input not yet implemented.
 
@@ -152,7 +180,17 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
                   'syncron_bad': '0'}}
 ```
 
+# CLI
+For easy access to the device methods; use `cli.py`:
+
+    python3 cli.py device method arguments
+
+Example:
+
+    python3 cli.py pdu test
+
 # Scripts
+* `cli.py`: Simple command line interface
 * `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
 * `pdu_power.py`: Get real and apparent power from the PDU.
