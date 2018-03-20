@@ -24,8 +24,8 @@ class PDU(Powerwalker):
     keys = [
       'model',
       'in_out_phase',
-      'nom_ip_voltage',
-      'nom_op_voltage',
+      'nom_in_voltage',
+      'nom_out_voltage',
       'in_socket_no',
       'out_socket_no'
     ]
@@ -51,7 +51,7 @@ class PDU(Powerwalker):
       'out6_current',
       'out7_current',
       'out8_current',
-      'temp'
+      'int_temp'
     ]
 
     status_keys = [
@@ -120,7 +120,7 @@ class PDU(Powerwalker):
     return params
 
 
-  def power_cons(self):
+  def power_kwh(self):
     """Get and return power consumption for input and all outputs."""
     values = self.send('QEC').split(' ')
     keys = [
@@ -140,7 +140,7 @@ class PDU(Powerwalker):
     return params
 
 
-  def power_cons_clear(self):
+  def power_kwh_clear(self):
     """Clear power consumption values for input and all outputs."""
     response = self.send('CEC')
 
@@ -155,7 +155,7 @@ class PDU(Powerwalker):
 
     for x in range(0, 8):
       idx = x * 3
-      triplets['out' + str(x+1) + '_cd_times'] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
+      triplets['out' + str(x+1) + '_cd_sec'] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
 
     return triplets
 

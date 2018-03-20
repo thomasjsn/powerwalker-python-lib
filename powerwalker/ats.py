@@ -53,7 +53,7 @@ class ATS(Powerwalker):
       'src2_wave_bad',
       'on_src2',
       'on_src1',
-      'src2_preferred',
+      'preferred_src2',
       'syncron_bad',
       'aux_pwr1_fail',
       'aux_pwr2_fail',
