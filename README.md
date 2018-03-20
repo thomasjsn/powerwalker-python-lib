@@ -18,7 +18,8 @@ ats = powerwalker.ATS("/dev/ttyUSB1")
 ```
 
 # PowerWalker PDU RC-16A IEC
-![PowerWalker PDU RC-16A IEC](media/powerwalker_pdu_rc-16a_front.jpg)
+![PowerWalker PDU RC-16A IEC front](media/powerwalker_pdu_rc-16a_front.jpg)
+![PowerWalker PDU RC-16A IEC back](media/powerwalker_pdu_rc-16a_back.jpg)
 
 PowerWalker PDU RC-16A is designed to distribute AC power from a single source to 8 outputs with advanced load monitoring and local or remote ON/OFF switching control of individual outlets.
 
@@ -149,7 +150,8 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 ```
 
 # PowerWalker ATS
-![PowerWalker ATS](media/powerwalker_ats_front.jpg)
+![PowerWalker ATS front](media/powerwalker_ats_front.jpg)
+![PowerWalker ATS back](media/powerwalker_ats_back.jpg)
 
 ATS (Automatic Transfer Switch) supports connection of two independent power sources. If primary power source fails, the secondary will automatically back up the connected load without any interruption. 
 
