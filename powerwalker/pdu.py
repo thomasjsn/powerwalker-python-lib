@@ -160,6 +160,48 @@ class PDU(Powerwalker):
     return triplets
 
 
+  def shutdown(self, idx, shdn):
+    """Shutdown output _idx_ in _shdn_ minutes.
+
+    Arguments:
+    idx  : output; 1-8, A for all
+    shdn : shutdown delay in minutes, 0.1 to 99, 00 for imitate
+    """
+    raise NotImplementedError
+
+    response = self.send('S,' + idx + shdn)
+
+    return response
+
+
+  def shutdown_restore(self, idx, shdn, rst):
+    """Shutdown output _idx_ in _shdn_ minutes, restore power after _rst_ minutes.
+
+    Arguments:
+    idx  : output; 1-8, A for all
+    shdn : shutdown delay in minutes, 0.1 to 99, 00 for imitate
+    rst  : restore delay in minutes, 0000 to 9999, 0000 for 1 second
+    """
+    raise NotImplementedError
+
+    response = self.send('S,' + idx + shdn + 'R' + rst)
+
+    return response
+
+
+  def shutdown_cancel(self, idx):
+    """Cancel pending shutdown on output _idx_.
+
+    Arguments:
+    idx  : output; 1-8, A for all
+    """
+    raise NotImplementedError
+
+    response = self.send('CS,' + idx)
+
+    return response
+
+
   def test(self):
     """Test PDU device, turn on all LEDs and the buzzer for 5 seconds."""
     response = self.send('TP')
