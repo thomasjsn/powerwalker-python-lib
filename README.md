@@ -3,7 +3,7 @@ There was no Linux software available for the PowerWalker PDU and ATS, but the [
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab_ats_pdu_front.jpg)
 
-I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. I use MQTT to communicate with it, and report power usage etc. to things like Home Assistant. For graphing I'll be storing values in [Elasticsearch](https://www.elastic.co/products/elasticsearch) and displaying the data using [Kibana](https://www.elastic.co/products/kibana).
+I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. I use MQTT to communicate with it, and report power usage etc. to things like [Home Assistant](https://home-assistant.io/). For graphing I'll be storing values in [Elasticsearch](https://www.elastic.co/products/elasticsearch) and displaying the data using [Kibana](https://www.elastic.co/products/kibana).
 
 **Beta!** This library is still very much in beta, and not all features are implemented yet.
 
@@ -37,9 +37,10 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `power_kwh()` | Get and return power consumption for input and all outputs. | get |
 | `power_kwh_clear()` | Clear power consumption values for input and all outputs. | **set** |
 | `countdown_times()` | Get and return shutdown and restore countdown times for all outputs. | get |
+| `shutdown(idx, shdn) | Shutdown output `idx` in `shdn` minutes. | **set** |
+| `shutdown_restore(idx, shdn, rst)` | Shutdown output `idx` in `shdn` minutes, restore power after `rst` minutes. | **set** |
+| `shutdown_cancel(idx)` | Cancel pending shutdown on output `idx`. | **set** |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
-
-> Changing output states not yet implemented.
 
 ### Output status codes
 0. Off
@@ -49,6 +50,11 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 4. Restore active
 5. Overload alarm (F01-F08 code)
 6. Locked (L01-L08 code)
+
+### Shutdown method arguments
+* `idx` : output; `1` to `8`, `A` for all.
+* `shdn` : shutdown delay in minutes; `.1` to `.9`, `01` to `99`, `00` for immediate.
+* `rst` : restore delay in minutes; `0000` to `9999`, `0000` for 1 second.
 
 ## Example responses
 
@@ -218,6 +224,18 @@ For easy access to the device methods; use `cli.py`:
 Run test sequence on PDU:
 
     python3 cli.py pdu test
+
+Shutdown output 8 in 0.5 minutes:
+
+    python3 cli.py pdu shutdown 8 .5
+
+Shutdown output 8 in 2 minutes, restore after 1 second:
+
+    python3 cli.py pdu shutdown_restore 8 02 0000
+
+Cancel pending shutdown on output 8
+
+    python3 cli.py pdu shutdown_cancel 8
 
 # Script files
 * `cli.py`: Simple command line interface

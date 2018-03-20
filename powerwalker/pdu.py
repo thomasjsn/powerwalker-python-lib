@@ -164,11 +164,9 @@ class PDU(Powerwalker):
     """Shutdown output _idx_ in _shdn_ minutes.
 
     Arguments:
-    idx  : output; 1-8, A for all
-    shdn : shutdown delay in minutes, 0.1 to 99, 00 for imitate
+    idx  : output; 1 to 8, A for all
+    shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
     """
-    raise NotImplementedError
-
     response = self.send('S,' + idx + shdn)
 
     return response
@@ -178,12 +176,10 @@ class PDU(Powerwalker):
     """Shutdown output _idx_ in _shdn_ minutes, restore power after _rst_ minutes.
 
     Arguments:
-    idx  : output; 1-8, A for all
-    shdn : shutdown delay in minutes, 0.1 to 99, 00 for imitate
-    rst  : restore delay in minutes, 0000 to 9999, 0000 for 1 second
+    idx  : output; 1 to 8, A for all
+    shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
+    rst  : restore delay in minutes; 0000 to 9999, 0000 for 1 second
     """
-    raise NotImplementedError
-
     response = self.send('S,' + idx + shdn + 'R' + rst)
 
     return response
@@ -193,10 +189,8 @@ class PDU(Powerwalker):
     """Cancel pending shutdown on output _idx_.
 
     Arguments:
-    idx  : output; 1-8, A for all
+    idx  : output; 1 to 8, A for all
     """
-    raise NotImplementedError
-
     response = self.send('CS,' + idx)
 
     return response
