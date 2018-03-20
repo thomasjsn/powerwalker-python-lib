@@ -3,7 +3,7 @@ There was no Linux software available for the PowerWalker PDU and ATS, but the [
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab.jpg)
 
-I'm using a Raspberry Pi as my power manager, it is connected to both the PDU and ATS. I'm planning to use MQTT to communicate with it, and report power usage etc. to things like Home Assistant. For graphing I'll be storing values in Elasticsearch and displaying the data using Kibana.
+I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. I use MQTT to communicate with it, and report power usage etc. to things like Home Assistant. For graphing I'll be storing values in [Elasticsearch](https://www.elastic.co/products/elasticsearch) and displaying the data using [Kibana](https://www.elastic.co/products/kibana).
 
 **Beta!** This library is still very much in beta, and not all features are implemented yet.
 
@@ -208,3 +208,6 @@ Example:
 * `mqtt.py`: Publishing values to a MQTT broker.
 * `pdu_power.py`: Get real and apparent power from the PDU.
 * `status.py`: Get and print statuses.
+
+# Author
+[Thomas Jensen](https://www.thomasjensen.me/)
