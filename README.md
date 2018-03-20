@@ -198,7 +198,8 @@ For easy access to the device methods; use `cli.py`:
 
     python3 cli.py device method arguments
 
-Example:
+## Examples
+Run test sequence on PDU:
 
     python3 cli.py pdu test
 
