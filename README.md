@@ -23,8 +23,8 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `status()` | Get and return device statuses. (see codes below) | get |
 | `power_watt()` | Get and return active power measurements for input and all outputs. | get |
 | `power_va()` | Get and return apparent power measurements for input and all outputs. | get |
-| `power_cons()` | Get and return power consumption for input and all outputs. | get |
-| `power_cons_clear()` | Clear power consumption values for input and all outputs. | set |
+| `power_kwh()` | Get and return power consumption for input and all outputs. | get |
+| `power_kwh_clear()` | Clear power consumption values for input and all outputs. | set |
 | `countdown_times()` | Get and return shutdown and restore countdown times for all outputs. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | set |
 
@@ -46,24 +46,25 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 {   'in_out_phase': '1/1',
     'in_socket_no': '1',
     'model': '############PDU',
-    'nom_ip_voltage': '230',
-    'nom_op_voltage': '230',
+    'nom_in_voltage': '230',
+    'nom_out_voltage': '230',
     'out_socket_no': '8'}
 ```
 
 ### `status()`
 ```
-{   'in_current': '02.1',
+{   'in_current': '01.4',
     'in_freq': '49.8',
-    'in_voltage': '222.5',
+    'in_voltage': '226.9',
+    'int_temp': '35.0',
     'out1_current': '00.0',
     'out2_current': '00.3',
-    'out3_current': '00.5',
-    'out4_current': '00.4',
+    'out3_current': '00.0',
+    'out4_current': '00.3',
     'out5_current': '00.1',
     'out6_current': '00.2',
     'out7_current': '00.2',
-    'out8_current': '00.3',
+    'out8_current': '00.0',
     'status': {   'a01_low_in_voltage': '0',
                   'a02_high_in_voltage': '0',
                   'f09_low_in_current': '0',
@@ -79,59 +80,58 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
                   'out5_status': '1',
                   'out6_status': '1',
                   'out7_status': '1',
-                  'out8_status': '1'},
-    'temp': '36.0'}
+                  'out8_status': '1'}}
 ```
 
 ### `power_watt()`
 ```
-{   'in_w': '0246',
+{   'in_w': '0249',
     'out1_w': '0000',
     'out2_w': '0042',
     'out3_w': '0000',
-    'out4_w': '0080',
-    'out5_w': '0030',
-    'out6_w': '0044',
+    'out4_w': '0083',
+    'out5_w': '0000',
+    'out6_w': '0043',
     'out7_w': '0031',
     'out8_w': '0000'}
 ```
 
 ### `power_va()`
 ```
-{   'in_va': '0336',
+{   'in_va': '0338',
     'out1_va': '0000',
-    'out2_va': '0078',
+    'out2_va': '0079',
     'out3_va': '0000',
-    'out4_va': '0089',
-    'out5_va': '0034',
-    'out6_va': '0050',
+    'out4_va': '0090',
+    'out5_va': '0036',
+    'out6_va': '0049',
     'out7_va': '0063',
     'out8_va': '0000'}
 ```
 
-### `power_cons()`
+### `power_kwh()`
 ```
-{   'in_kwh': '000701.7',
+{   'in_kwh': '000702.2',
     'out1_kwh': '000000.0',
-    'out2_kwh': '000100.9',
+    'out2_kwh': '000101.0',
     'out3_kwh': '000011.8',
-    'out4_kwh': '000110.6',
-    'out5_kwh': '000198.8',
-    'out6_kwh': '000103.9',
-    'out7_kwh': '000046.2',
+    'out4_kwh': '000110.7',
+    'out5_kwh': '000198.9',
+    'out6_kwh': '000104.0',
+    'out7_kwh': '000046.3',
     'out8_kwh': '000019.8'}
 ```
 
 ### `countdown_times()`
 ```
-{   'out1_cd_times': {'r': '000000', 's': '0000'},
-    'out2_cd_times': {'r': '000000', 's': '0000'},
-    'out3_cd_times': {'r': '000000', 's': '0000'},
-    'out4_cd_times': {'r': '000000', 's': '0000'},
-    'out5_cd_times': {'r': '000000', 's': '0000'},
-    'out6_cd_times': {'r': '000000', 's': '0000'},
-    'out7_cd_times': {'r': '000000', 's': '0000'},
-    'out8_cd_times': {'r': '000000', 's': '0000'}}
+{   'out1_cd_sec': {'r': '000000', 's': '0000'},
+    'out2_cd_sec': {'r': '000000', 's': '0000'},
+    'out3_cd_sec': {'r': '000000', 's': '0000'},
+    'out4_cd_sec': {'r': '000000', 's': '0000'},
+    'out5_cd_sec': {'r': '000000', 's': '0000'},
+    'out6_cd_sec': {'r': '000000', 's': '0000'},
+    'out7_cd_sec': {'r': '000000', 's': '0000'},
+    'out8_cd_sec': {'r': '000000', 's': '0000'}}
 ```
 
 # PowerWalker ATS
@@ -156,12 +156,12 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 ### `info()`
 ```
 {   'int_temp': '35.0',
-    'out_current': '002.2',
-    'out_load_pct': '013',
+    'out_current': '001.6',
+    'out_load_pct': '010',
     'src1_freq': '50.0',
-    'src1_voltage': '223.7',
+    'src1_voltage': '229.7',
     'src2_freq': '50.0',
-    'src2_voltage': '223.7',
+    'src2_voltage': '229.7',
     'sync_angle': '001'}
 ```
 
@@ -182,12 +182,12 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
                   'on_src2': '0',
                   'overload_alarm': '0',
                   'overload_fault': '0',
+                  'preferred_src2': '0',
                   'short_fault': '0',
                   'src1_freq_bad': '0',
                   'src1_voltage_bad': '0',
                   'src1_wave_bad': '0',
                   'src2_freq_bad': '0',
-                  'src2_preferred': '0',
                   'src2_voltage_bad': '0',
                   'src2_wave_bad': '0',
                   'syncron_bad': '0'}}
