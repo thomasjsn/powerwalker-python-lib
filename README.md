@@ -171,7 +171,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | `info()` | Get and return device information. | get |
 | `status()` | Get and return device statuses. | get |
 
-> Changing perferred input not yet implemented.
+> Changing perferred input not (yet?) implemented.
 
 ## Example responses
 
