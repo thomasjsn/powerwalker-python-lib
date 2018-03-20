@@ -16,7 +16,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ## Available methods
 | Method | Description | Type |
-| --- | --- |
+| --- | --- | --- |
 | `connect()` | Connect to PDU device. | - |
 | `send(cmd)` | Send custom command. | - |
 | `info()` | Get and return device information. | get |
@@ -130,7 +130,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 
 ## Available methods
 | Method | Description | Type |
-| --- | --- |
+| --- | --- | --- |
 | `connect()` | Connect to PDU device. | - |
 | `send(cmd)` | Send custom command. | - |
 | `info()` | Get and return device information. | get |
