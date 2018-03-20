@@ -27,6 +27,7 @@ class Powerwalker:
 
 
   def status_code(self, code, keys):
+    """Convert string of status bits to dictionary."""
     d = {}
     i = 0
 
