@@ -127,7 +127,7 @@ class PDU(Powerwalker):
       'in_kwh',
       'out1_kwh',
       'out2_kwh',
-      'out3_pwh',
+      'out3_kwh',
       'out4_kwh',
       'out5_kwh',
       'out6_kwh',
@@ -155,7 +155,7 @@ class PDU(Powerwalker):
 
     for x in range(0, 8):
       idx = x * 3
-      triplets['out' + str(x+1)] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
+      triplets['out' + str(x+1) + '_cd_times'] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
 
     return triplets
 
