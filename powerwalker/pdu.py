@@ -80,8 +80,8 @@ class PDU(Powerwalker):
     return params
 
 
-  def power_watt(self):
-    """Get and return active power measurements for input and all outputs."""
+  def power_w(self):
+    """Get and return active power (W) measurements for input and all outputs."""
     values = self.send('QPW').split(' ')
     keys = [
       'in_w',
@@ -101,7 +101,7 @@ class PDU(Powerwalker):
 
 
   def power_va(self):
-    """Get and return apparent power measurements for input and all outputs."""
+    """Get and return apparent power (VA) measurements for input and all outputs."""
     values = self.send('QPVA').split(' ')
     keys = [
       'in_va',
@@ -120,8 +120,8 @@ class PDU(Powerwalker):
     return params
 
 
-  def power_kwh(self):
-    """Get and return power consumption for input and all outputs."""
+  def energy_kwh(self):
+    """Get and return energy consumption (kWh) for input and all outputs."""
     values = self.send('QEC').split(' ')
     keys = [
       'in_kwh',
@@ -140,8 +140,8 @@ class PDU(Powerwalker):
     return params
 
 
-  def power_kwh_clear(self):
-    """Clear power consumption values for input and all outputs."""
+  def energy_kwh_clear(self):
+    """Clear energy consumption values for input and all outputs."""
     response = self.send('CEC')
 
     return response
