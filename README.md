@@ -131,6 +131,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 ```
 
 ### `energy_kwh()`
+The energy readings doesn't seem to make any sense, not sure what is wrong.
 ```
 {   'in_kwh': '000702.2',
     'out1_kwh': '000000.0',
@@ -241,7 +242,6 @@ Cancel pending shutdown on output 8
 * `cli.py`: Simple command line interface
 * `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
-* `pdu_power.py`: Get real & apparent power and consumption from the PDU.
 * `status.py`: Get and print statuses.
 
 # Author
