@@ -212,3 +212,8 @@ Run test sequence on PDU:
 
 # Author
 [Thomas Jensen](https://www.thomasjensen.me/)
+
+# Notices
+* PowerWalker is a brand of BlueWalker GmbH.
+* PowerWalker PDU RC-16A IEC and PowerWalker ATS are products of BlueWalker GmbH.
+* This library is published under the [MIT license](LICENSE).
