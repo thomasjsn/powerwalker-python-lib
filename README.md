@@ -7,6 +7,16 @@ I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasje
 
 **Beta!** This library is still very much in beta, and not all features are implemented yet.
 
+## Communicate
+Connect either the USB or the serial port, find the correct device path and instantiate:
+
+```pyhton
+import powerwalker
+
+pdu = powerwalker.PDU("/dev/ttyUSB0")
+ats = powerwalker.ATS("/dev/ttyUSB1")
+```
+
 # PowerWalker PDU RC-16A IEC
 ![PowerWalker PDU RC-16A IEC](media/powerwalker_pdu_rc-16a_front.jpg)
 
@@ -24,9 +34,9 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `power_watt()` | Get and return active power measurements for input and all outputs. | get |
 | `power_va()` | Get and return apparent power measurements for input and all outputs. | get |
 | `power_kwh()` | Get and return power consumption for input and all outputs. | get |
-| `power_kwh_clear()` | Clear power consumption values for input and all outputs. | set |
+| `power_kwh_clear()` | Clear power consumption values for input and all outputs. | **set** |
 | `countdown_times()` | Get and return shutdown and restore countdown times for all outputs. | get |
-| `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | set |
+| `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
 
 > Changing output states not yet implemented.
 
@@ -133,6 +143,10 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'out7_cd_sec': {'r': '000000', 's': '0000'},
     'out8_cd_sec': {'r': '000000', 's': '0000'}}
 ```
+
+### Set
+* `ACK` if command was accepted.
+* `NAK` if command was **not** accepted.
 
 # PowerWalker ATS
 ![PowerWalker ATS](media/powerwalker_ats_front.jpg)
