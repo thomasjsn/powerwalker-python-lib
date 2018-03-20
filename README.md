@@ -51,6 +51,10 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ## Example responses
 
+### Generic
+* `ACK` if command was accepted.
+* `NAK` if command was **not** accepted.
+
 ### `info()`
 ```
 {   'in_out_phase': '1/1',
@@ -144,10 +148,6 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'out8_cd_sec': {'r': '000000', 's': '0000'}}
 ```
 
-### Set
-* `ACK` if command was accepted.
-* `NAK` if command was **not** accepted.
-
 # PowerWalker ATS
 ![PowerWalker ATS](media/powerwalker_ats_front.jpg)
 
@@ -217,7 +217,7 @@ Run test sequence on PDU:
 
     python3 cli.py pdu test
 
-# Scripts
+# Script files
 * `cli.py`: Simple command line interface
 * `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
