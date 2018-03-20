@@ -37,7 +37,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `energy_kwh()` | Get and return energy consumption (kWh) for input and all outputs. | get |
 | `energy_kwh_clear()` | Clear energy consumption values for input and all outputs. | **set** |
 | `countdown_times()` | Get and return shutdown and restore countdown times for all outputs. | get |
-| `shutdown(idx, shdn) | Shutdown output `idx` in `shdn` minutes. | **set** |
+| `shutdown(idx, shdn)` | Shutdown output `idx` in `shdn` minutes. | **set** |
 | `shutdown_restore(idx, shdn, rst)` | Shutdown output `idx` in `shdn` minutes, restore power after `rst` minutes. | **set** |
 | `shutdown_cancel(idx)` | Cancel pending shutdown on output `idx`. | **set** |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
@@ -171,7 +171,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | `info()` | Get and return device information. | get |
 | `status()` | Get and return device statuses. | get |
 
-> Changing perferred input not yet implemented.
+> Changing perferred input not (yet?) implemented.
 
 ## Example responses
 
