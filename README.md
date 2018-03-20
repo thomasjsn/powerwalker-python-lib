@@ -19,7 +19,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | --- | --- |
 | `connect()` | Connect to PDU device. |
 | `send(cmd)` | Send custom command. |
-| `info()` | Get and return device information |
+| `info()` | Get and return device information. |
 | `status()` | Get and return device statuses. (see codes below) |
 | `power_watt()` | Get and return active power measurements for input and all outputs. |
 | `power_va()` | Get and return apparent power measurements for input and all outputs. |
@@ -38,7 +38,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ## Example responses
 
-### Info
+### `info()`
 ```
 {   'in_out_phase': '1/1',
     'in_socket_no': '1',
@@ -48,7 +48,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'out_socket_no': '8'}
 ```
 
-### Status
+### `status()`
 ```
 {   'in_current': '02.1',
     'in_freq': '49.8',
@@ -80,6 +80,19 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'temp': '36.0'}
 ```
 
+### `power_watt/va()`
+```
+{   'in_power': '0253',
+    'out1_power': '0000',
+    'out2_power': '0042',
+    'out3_power': '0000',
+    'out4_power': '0080',
+    'out5_power': '0030',
+    'out6_power': '0044',
+    'out7_power': '0032',
+    'out8_power': '0000'}
+```
+
 # PowerWalker ATS
 ![PowerWalker ATS](media/powerwalker_ats.jpg)
 
@@ -92,14 +105,14 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | --- | --- |
 | `connect()` | Connect to PDU device. |
 | `send(cmd)` | Send custom command. |
-| `info()` | Get and return device information |
+| `info()` | Get and return device information. |
 | `status()` | Get and return device statuses. |
 
 > Changing perferred input not yet implemented.
 
 ## Example responses
 
-### Info
+### `info()`
 ```
 {   'int_temp': '35.0',
     'out_current': '002.2',
@@ -111,7 +124,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
     'sync_angle': '001'}
 ```
 
-### Status
+### `status()`
 ```
 {   'status': {   'aux_pwr1_fail': '0',
                   'aux_pwr2_fail': '0',
@@ -140,6 +153,7 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 ```
 
 # Scripts
-* `status.py`: Get and print statuses
-* `info.py`: Get and print device information
-* `mqtt.py`: Publishing values to a MQTT broker
+* `info.py`: Get and print device information.
+* `mqtt.py`: Publishing values to a MQTT broker.
+* `pdu_power.py`: Get real and apparent power from the PDU.
+* `status.py`: Get and print statuses.
