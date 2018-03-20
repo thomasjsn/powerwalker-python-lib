@@ -25,6 +25,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `power_va()` | Get and return apparent power measurements for input and all outputs. | get |
 | `power_cons()` | Get and return power consumption for input and all outputs. | get |
 | `power_cons_clear()` | Clear power consumption values for input and all outputs. | set |
+| `countdown_times()` | Get and return shutdown and restore countdown times for all outputs. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | set |
 
 > Changing output states not yet implemented.
@@ -119,6 +120,18 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
     'out6_kwh': '000103.9',
     'out7_kwh': '000046.2',
     'out8_kwh': '000019.8'}
+```
+
+### `countdown_times()`
+```
+{   'out1': {'r': '000000', 's': '0000'},
+    'out2': {'r': '000000', 's': '0000'},
+    'out3': {'r': '000000', 's': '0000'},
+    'out4': {'r': '000000', 's': '0000'},
+    'out5': {'r': '000000', 's': '0000'},
+    'out6': {'r': '000000', 's': '0000'},
+    'out7': {'r': '000000', 's': '0000'},
+    'out8': {'r': '000000', 's': '0000'}}
 ```
 
 # PowerWalker ATS

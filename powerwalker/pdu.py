@@ -147,6 +147,19 @@ class PDU(Powerwalker):
     return response
 
 
+  def countdown_times(self):
+    """Get and return shutdown and restore countdown times for all outputs."""
+    values = self.send('QSR').split(' ')
+
+    triplets = {}
+
+    for x in range(0, 8):
+      idx = x * 3
+      triplets['out' + str(x+1)] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
+
+    return triplets
+
+
   def test(self):
     """Test PDU device, turn on all LEDs and the buzzer for 5 seconds."""
     response = self.send('TP')
