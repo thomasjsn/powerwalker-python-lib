@@ -45,7 +45,7 @@ https://powerwalker.com/?item=10133001
 | `protocol()` | Get and return device protocol ID. | get |
 | `firmware()` | Get and return device firmware version. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
-| `mem_get(adr)` | Get and return memory setting at `adr` location. | get |
+| `memory_get(adr)` | Get and return memory setting at `adr` location. | get |
 
 ### Output status codes
 0. Off
@@ -170,6 +170,11 @@ https://powerwalker.com/?item=10133001
 {'verfw': '00.15'}
 ```
 
+### `memory_get(0)`
+```
+{'output_start_up_delay': 1}
+```
+
 # PowerWalker ATS
 ![PowerWalker ATS front](media/powerwalker_ats_front.jpg)
 ![PowerWalker ATS back](media/powerwalker_ats_back.jpg)
@@ -187,7 +192,7 @@ https://powerwalker.com/?item=10120543
 | `status()` | Get and return device statuses. | get |
 | `protocol()` | Get and return device protocol ID. | get |
 | `firmware()` | Get and return device firmware version. | get |
-| `mem_get(adr)` | Get and return memory setting at `adr` location. | get |
+| `memory_get(adr)` | Get and return memory setting at `adr` location. | get |
 
 ## Example responses
 
@@ -243,6 +248,11 @@ https://powerwalker.com/?item=10120543
 ### `firmware()`
 ```
 {'verfw': '00181.00'}
+```
+
+### `memory_get(0)`
+```
+{'src1_voltage_high_loss': 258}
 ```
 
 # CLI

@@ -103,7 +103,7 @@ class ATS(Powerwalker):
     return super().firmware()
 
 
-  def mem_get(self, adr):
+  def memory_get(self, adr):
     """Get and return memory setting at _adr_ location."""
     if int(adr) not in range(0,21):
       raise ValueError('Address must be between 0 and 20')
