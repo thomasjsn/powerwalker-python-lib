@@ -40,8 +40,8 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `shutdown(idx, shdn)` | Shutdown output `idx` in `shdn` minutes. | **set** |
 | `shutdown_restore(idx, shdn, rst)` | Shutdown output `idx` in `shdn` minutes, restore power after `rst` minutes. | **set** |
 | `shutdown_cancel(idx)` | Cancel pending shutdown on output `idx`. | **set** |
-| `protocol() | Get and return device protocol ID. | get |
-| `firmware() | Get and return device firmware version. | get |
+| `protocol()` | Get and return device protocol ID. | get |
+| `firmware()` | Get and return device firmware version. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
 
 ### Output status codes
@@ -182,8 +182,8 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | `send(cmd)` | Send custom command. | - |
 | `info()` | Get and return device information. | get |
 | `status()` | Get and return device statuses. | get |
-| `protocol() | Get and return device protocol ID. | get |
-| `firmware() | Get and return device firmware version. | get |
+| `protocol()` | Get and return device protocol ID. | get |
+| `firmware()` | Get and return device firmware version. | get |
 
 ## Example responses
 
