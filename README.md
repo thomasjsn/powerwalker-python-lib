@@ -45,6 +45,7 @@ https://powerwalker.com/?item=10133001
 | `protocol()` | Get and return device protocol ID. | get |
 | `firmware()` | Get and return device firmware version. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
+| `mem_get(adr)` | Get and return memory setting at `adr` location. | get |
 
 ### Output status codes
 0. Off
@@ -186,6 +187,7 @@ https://powerwalker.com/?item=10120543
 | `status()` | Get and return device statuses. | get |
 | `protocol()` | Get and return device protocol ID. | get |
 | `firmware()` | Get and return device firmware version. | get |
+| `mem_get(adr)` | Get and return memory setting at `adr` location. | get |
 
 ## Example responses
 

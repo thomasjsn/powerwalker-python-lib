@@ -211,3 +211,45 @@ class PDU(Powerwalker):
     response = self.send('TP')
 
     return response
+
+
+  def mem_get(self, adr):
+    """Get and return memory setting at _adr_ location."""
+    if int(adr) not in range(0,15):
+      raise ValueError('Address must be between 0 and 14')
+
+    mem_map = ['00','01','02','03','04','05','06','07','08','09','0:','0;','0<','0=','0>','0?']
+
+    mem_keys = [
+      'output_start_up_delay',
+      { 'low': 'out1_current_alarm', 'high': 'out1_config' },
+      { 'low': 'out2_current_alarm', 'high': 'out2_config' },
+      { 'low': 'out3_current_alarm', 'high': 'out3_config' },
+      { 'low': 'out4_current_alarm', 'high': 'out4_config' },
+      { 'low': 'out5_current_alarm', 'high': 'out5_config' },
+      { 'low': 'out6_current_alarm', 'high': 'out6_config' },
+      { 'low': 'out7_current_alarm', 'high': 'out7_config' },
+      { 'low': 'out8_current_alarm', 'high': 'out8_config' },
+      'low_input_voltage_alarm',
+      'high_input_voltage_alarm',
+      'max_input_voltage_shutoff',
+      'low_input_current_alarm',
+      'high_input_current_alarm',
+      'shutdown_imminent_signal',
+    ]
+
+    response = self.send('QGM' + mem_map[int(adr)])
+
+    response = response.replace(':','A').replace(';','B').replace('<','C').replace('=','D').replace('>','E').replace('?','F')
+
+    if isinstance(mem_keys[int(adr)], dict):
+      mem_value = {
+	mem_keys[int(adr)]['high']: int(response[2:4], 16),
+	mem_keys[int(adr)]['low']: int(response[4:6], 16)
+      }
+    else:
+      mem_value = {
+	mem_keys[int(adr)]: int(response[2:6], 16)
+      }
+
+    return mem_value

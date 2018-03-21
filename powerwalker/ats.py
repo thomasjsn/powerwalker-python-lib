@@ -101,3 +101,39 @@ class ATS(Powerwalker):
   def firmware(self):
     """Get and return device firmware version."""
     return super().firmware()
+
+
+  def mem_get(self, adr):
+    """Get and return memory setting at _adr_ location."""
+    if int(adr) not in range(0,21):
+      raise ValueError('Address must be between 0 and 20')
+
+    mem_keys = [
+      'src1_voltage_high_loss',
+      'src1_voltage_high_back',
+      'src1_voltage_low_loss',
+      'src1_voltage_low_back',
+      'src1_freq_high_loss',
+      'src1_freq_high_back',
+      'src1_freq_low_loss',
+      'src1_freq_low_high',
+      'src2_voltage_high_loss',
+      'src2_voltage_high_back',
+      'src2_voltage_low_loss',
+      'src2_voltage_low_back',
+      'src2_freq_high_loss',
+      'src2_freq_high_back',
+      'src2_freq_low_loss',
+      'src2_freq_low_high',
+      'overload_alarm',
+      'overload_fault',
+      'acceptable_phases',
+      'breaking_time',
+      'blanking_time'
+    ]
+
+    idx = '{:04d}'.format(int(adr))
+
+    response = self.send('GM' + idx)
+
+    return { mem_keys[int(adr)]: int(response) }
