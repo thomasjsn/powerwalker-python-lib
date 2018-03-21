@@ -20,6 +20,21 @@ class ATS(Powerwalker):
 
   def info(self):
     """Get and return device information."""
+    values = self.send('QRI').split(' ')
+    keys = [
+      'rated_output_voltage',
+      'rated_output_current',
+      'batter_voltage',
+      'rated_output_freq'
+    ]
+
+    params = dict(zip(keys, values))
+
+    return params
+
+
+  def status(self):
+    """Get and return device statuses."""
     values = self.send('QATS').split(' ')
     keys = [
       'src1_voltage',
@@ -34,11 +49,13 @@ class ATS(Powerwalker):
 
     params = dict(zip(keys, values))
 
+    params['status'] = self.__status_code()
+
     return params
 
 
-  def status(self):
-    """Get and return device statuses."""
+  def __status_code(self):
+    """Get and return device status code."""
     values = self.send('QAS').split(' ')
     keys = [
       'status'
@@ -71,9 +88,7 @@ class ATS(Powerwalker):
       'na_c0'
     ]
 
-    params = dict(zip(keys, values))
-
-    params['status'] = super().status_code(values[0], status_keys)
+    params = super().status_code(values[0], status_keys)
 
     return params
 

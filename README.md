@@ -191,19 +191,22 @@ https://powerwalker.com/?item=10120543
 
 ### `info()`
 ```
-{   'int_temp': '35.0',
-    'out_current': '001.6',
-    'out_load_pct': '010',
-    'src1_freq': '50.0',
-    'src1_voltage': '229.7',
-    'src2_freq': '50.0',
-    'src2_voltage': '229.7',
-    'sync_angle': '001'}
+{   'batter_voltage': '---.-',
+    'rated_output_current': '016',
+    'rated_output_freq': '50.0',
+    'rated_output_voltage': '230.0'}
 ```
 
 ### `status()`
 ```
-{   'status': {   'aux_pwr1_fail': '0',
+{   'int_temp': '34.0',
+    'out_current': '001.6',
+    'out_load_pct': '009',
+    'src1_freq': '50.0',
+    'src1_voltage': '227.3',
+    'src2_freq': '50.0',
+    'src2_voltage': '228.5',
+    'status': {   'aux_pwr1_fail': '0',
                   'aux_pwr2_fail': '0',
                   'na_c0': '0',
                   'na_c1': '0',
@@ -226,7 +229,8 @@ https://powerwalker.com/?item=10120543
                   'src2_freq_bad': '0',
                   'src2_voltage_bad': '0',
                   'src2_wave_bad': '0',
-                  'syncron_bad': '0'}}
+                  'syncron_bad': '0'},
+    'sync_angle': '001'}
 ```
 
 ### `protocol()`
