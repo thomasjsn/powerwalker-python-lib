@@ -76,3 +76,13 @@ class ATS(Powerwalker):
     params['status'] = super().status_code(values[0], status_keys)
 
     return params
+
+
+  def protocol(self):
+    """Get and return device protocol ID."""
+    return super().protocol()
+
+
+  def firmware(self):
+    """Get and return device firmware version."""
+    return super().firmware()

@@ -40,6 +40,8 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 | `shutdown(idx, shdn)` | Shutdown output `idx` in `shdn` minutes. | **set** |
 | `shutdown_restore(idx, shdn, rst)` | Shutdown output `idx` in `shdn` minutes, restore power after `rst` minutes. | **set** |
 | `shutdown_cancel(idx)` | Cancel pending shutdown on output `idx`. | **set** |
+| `protocol() | Get and return device protocol ID. | get |
+| `firmware() | Get and return device firmware version. | get |
 | `test()` | Test PDU device, turn on all LEDs and the buzzer for 5 seconds. | **set** |
 
 ### Output status codes
@@ -131,7 +133,6 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 ```
 
 ### `energy_kwh()`
-The energy readings doesn't seem to make any sense, not sure what is wrong.
 ```
 {   'in_kwh': '000702.2',
     'out1_kwh': '000000.0',
@@ -156,6 +157,16 @@ The energy readings doesn't seem to make any sense, not sure what is wrong.
     'out8_cd_sec': {'r': '000000', 's': '0000'}}
 ```
 
+### `protocol()`
+```
+{'prot_id': 'PI90'}
+```
+
+### `firmware()`
+```
+{'verfw': '00.15'}
+```
+
 # PowerWalker ATS
 ![PowerWalker ATS front](media/powerwalker_ats_front.jpg)
 ![PowerWalker ATS back](media/powerwalker_ats_back.jpg)
@@ -171,8 +182,8 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
 | `send(cmd)` | Send custom command. | - |
 | `info()` | Get and return device information. | get |
 | `status()` | Get and return device statuses. | get |
-
-> Changing perferred input not (yet?) implemented.
+| `protocol() | Get and return device protocol ID. | get |
+| `firmware() | Get and return device firmware version. | get |
 
 ## Example responses
 
@@ -214,6 +225,16 @@ https://powerwalker.com/?page=product&item=10120543&lang=en
                   'src2_voltage_bad': '0',
                   'src2_wave_bad': '0',
                   'syncron_bad': '0'}}
+```
+
+### `protocol()`
+```
+{'prot_id': 'PI97'}
+```
+
+### `firmware()`
+```
+{'verfw': '00181.00'}
 ```
 
 # CLI

@@ -196,6 +196,16 @@ class PDU(Powerwalker):
     return response
 
 
+  def protocol(self):
+    """Get and return device protocol ID."""
+    return super().protocol()
+
+
+  def firmware(self):
+    """Get and return device firmware version."""
+    return super().firmware()
+
+
   def test(self):
     """Test PDU device, turn on all LEDs and the buzzer for 5 seconds."""
     response = self.send('TP')

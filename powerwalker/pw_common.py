@@ -36,3 +36,17 @@ class Powerwalker:
       i += 1
 
     return d
+
+
+  def protocol(self):
+    """Get and return device protocol ID."""
+    values = self.send('QPI')
+
+    return { 'prot_id': values }
+
+
+  def firmware(self):
+    """Get and return device firmware version."""
+    values = self.send('QVFW').split(':')
+
+    return { values[0].lower(): values[1] }
