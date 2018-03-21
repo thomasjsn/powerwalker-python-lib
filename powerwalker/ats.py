@@ -24,7 +24,7 @@ class ATS(Powerwalker):
     keys = [
       'rated_output_voltage',
       'rated_output_current',
-      'batter_voltage',
+      'battery_voltage',
       'rated_output_freq'
     ]
 

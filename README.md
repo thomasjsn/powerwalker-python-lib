@@ -191,7 +191,7 @@ https://powerwalker.com/?item=10120543
 
 ### `info()`
 ```
-{   'batter_voltage': '---.-',
+{   'battery_voltage': '---.-',
     'rated_output_current': '016',
     'rated_output_freq': '50.0',
     'rated_output_voltage': '230.0'}
