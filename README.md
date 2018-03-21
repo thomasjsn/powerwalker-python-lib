@@ -1,11 +1,13 @@
 # About
+> Software ___is not developed___ by BlueWalker GmbH.
+
 There was no Linux software available for the PowerWalker PDU and ATS, but the [manufacturer](https://powerwalker.com/) was kind enough to supply me with what I needed to make my own library.
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab_ats_pdu_front.jpg)
 
 I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. I use MQTT to communicate with it, and report power usage etc. to things like [Home Assistant](https://home-assistant.io/). For graphing I'll be storing values in [Elasticsearch](https://www.elastic.co/products/elasticsearch) and displaying the data using [Kibana](https://www.elastic.co/products/kibana).
 
-**Beta!** This library is still very much in beta, and not all features are implemented yet.
+**Note!** Methods and keys may change; as I am still investigating use cases and best practices.
 
 ## Communicate
 Connect either the USB or the serial port, find the correct device path and instantiate:
@@ -23,7 +25,7 @@ ats = powerwalker.ATS("/dev/ttyUSB1")
 
 PowerWalker PDU RC-16A is designed to distribute AC power from a single source to 8 outputs with advanced load monitoring and local or remote ON/OFF switching control of individual outlets.
 
-https://powerwalker.com/?lang=en&page=product&item=10133001
+https://powerwalker.com/?item=10133001
 
 ## Available methods
 | Method | Description | Type |
@@ -173,7 +175,7 @@ https://powerwalker.com/?lang=en&page=product&item=10133001
 
 ATS (Automatic Transfer Switch) supports connection of two independent power sources. If primary power source fails, the secondary will automatically back up the connected load without any interruption. 
 
-https://powerwalker.com/?page=product&item=10120543&lang=en
+https://powerwalker.com/?item=10120543
 
 ## Available methods
 | Method | Description | Type |
@@ -271,4 +273,5 @@ Cancel pending shutdown on output 8
 # Notices
 * PowerWalker is a brand of BlueWalker GmbH.
 * PowerWalker PDU RC-16A IEC and PowerWalker ATS are products of BlueWalker GmbH.
+* Software is not developed by BlueWalker GmbH.
 * This library is published under the [MIT license](LICENSE).
