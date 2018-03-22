@@ -61,6 +61,41 @@ https://powerwalker.com/?item=10133001
 * `shdn` : shutdown delay in minutes; `.1` to `.9`, `01` to `99`, `00` for immediate.
 * `rst` : restore delay in minutes; `0000` to `9999`, `0000` for 1 second.
 
+### Memory configuration map
+| Adr | Key | Unit | Min | Max | Default |
+| --- | --- | ---- | --- | --- | ------- |
+| 0 | `output_start_up_delay` | sec | 0 | 240 | 1 |
+| 1 | `out1_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 2 | `out2_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 3 | `out3_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 4 | `out4_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 5 | `out5_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 6 | `out6_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 7 | `out7_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 8 | `out8_current_alarm` | 0.1 A | 0.5 | 4.0 | 2.0 |
+| 9 | `low_input_voltage_alarm` | V | 184 | 207 | 196 |
+| 10 | `high_input_voltage_alarm` | V | 242 | 264 | 253 |
+| 11 | `max_input_voltage_shutoff` | V | 253 | 300 * | 276 |
+| 12 | `low_input_current_alarm` | 0.1 A | 0.0 | 15.0 | 0.0 |
+| 13 | `high_input_current_alarm` | 0.1 A | 1.0 | 16.0 | 16.0 |
+| 14 | `shutdown_imminent_signal` | min | 1 | - | 3 |
+
+    * 0xFFFF = disabled
+    
+#### Output configuration byte
+Memory address 1 to 8 also contains output configuration byte, key: `out?_config`.
+
+| Byte | Dec | Description | `0` | `1` |
+| ---- | --- | ----------- | --- | --- |
+| 0 | 1 | Output status at power on | off | on |
+| 1 | 2 | Automatic disconnection of the output 1 minute after the overload alarm | enabled | disabled |
+| 2 | 4 | On/off button enabled on front panel | disabled | enabled |
+| 3 | 8 | Not in use | - | - |
+| 4 | 16 | Not in use | - | - |
+| 5 | 32 | Not in use | - | - |
+| 6 | 64 | Not in use | - | - |
+| 7 | 128 | Not in use | - | - |
+
 ## Example responses
 
 ### Generic
@@ -193,6 +228,31 @@ https://powerwalker.com/?item=10120543
 | `protocol()` | Get and return device protocol ID. | get |
 | `firmware()` | Get and return device firmware version. | get |
 | `memory_get(adr)` | Get and return memory setting at `adr` location. | get |
+
+### Memory configuration map
+| Adr | Key | Unit | Min | Max | Default |
+| --- | --- | ---- | --- | --- | ------- |
+| 0 | `src1_voltage_high_loss` | V | 100 | 300 | 258 |
+| 1 | `src1_voltage_high_back` | V | 100 | 300 | 248 |
+| 2 | `src1_voltage_low_loss` | V | 100 | 300 | 180 |
+| 3 | `src1_voltage_low_back` | V | 100 | 300 | 190 |
+| 4 | `src1_freq_high_loss` | Hz | 40 | 70 | 55 |
+| 5 | `src1_freq_high_back` | Hz | 40 | 70 | 0 |
+| 6 | `src1_freq_low_loss` | Hz | 40 | 70 | 45 |
+| 7 | `src1_freq_low_high` | Hz | 40 | 70 | 0 |
+| 8 | `src2_voltage_high_loss` | V | 100 | 300 | 258 |
+| 9 | `src2_voltage_high_back` | V | 100 | 300 | 248 |
+| 10 | `src2_voltage_low_loss` | V | 100 | 300 | 180 |
+| 11 | `src2_voltage_low_back` | V | 100 | 300 | 190 |
+| 12 | `src2_freq_high_loss` | Hz | 40 | 70 | 55 |
+| 13 | `src2_freq_high_back` | Hz | 40 | 70 | 0 |
+| 14 | `src2_freq_low_loss` | Hz | 40 | 70 | 45 |
+| 15 | `src2_freq_low_high` | Hz | 40 | 70 | 0 |
+| 16 | `overload_alarm` | % | 0 | 150 | 100 |
+| 17 | `overload_fault` | % | 0 | 250 | 0 |
+| 18 | `acceptable_phases` | ° | 0 | 180 | 0 |
+| 19 | `breaking_time` | ms | 0 | 9999 | 5 |
+| 20 | `blanking_time` | ms | 0 | 1000 | 4 |
 
 ## Example responses
 
