@@ -210,6 +210,11 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 {'output_start_up_delay': 1}
 ```
 
+### `memory_get(1)`
+```
+{'out1_config': 255, 'out1_current_alarm': 20}
+```
+
 # PowerWalker ATS
 ![PowerWalker ATS front](media/powerwalker_ats_front.jpg)
 ![PowerWalker ATS back](media/powerwalker_ats_back.jpg)
