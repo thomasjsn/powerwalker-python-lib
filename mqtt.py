@@ -49,7 +49,7 @@ def queue_msg(topic, payload):
 # Get actual power use in watt
 def get_power_use():
   for watt in pdu_power.items():
-    queue_msg('power/' + topics[watt[0]], int(watt[1]))
+    queue_msg('power/' + topics[watt[0]], watt[1])
 
 
 # Get defined status codes and bits from PDU
@@ -67,19 +67,19 @@ def get_ats_status():
       for ats_status_bit in ats_status_code:
         queue_msg('voltage/' + ats_status_bit, ats_status['status'][ats_status_bit])
     else:
-      queue_msg('voltage/' + topics[ats_status_code], float(ats_status[ats_status_code]))
+      queue_msg('voltage/' + topics[ats_status_code], ats_status[ats_status_code])
 
 
 # Check source error codes on ATS
 def check_supply_sources():
   ats_status_bit = ats_status['status']
-  src1_bad = '1' if ats_status_bit['src1_freq_bad'] == '1' or \
-		    ats_status_bit['src1_voltage_bad'] == '1' or \
-		    ats_status_bit['src1_wave_bad'] == '1' \
+  src1_bad = '1' if ats_status_bit['src1_freq_bad'] == 1 or \
+		    ats_status_bit['src1_voltage_bad'] == 1 or \
+		    ats_status_bit['src1_wave_bad'] == 1 \
 		    else '0'
-  src2_bad = '1' if ats_status_bit['src2_freq_bad'] == '1' or \
-		    ats_status_bit['src2_voltage_bad'] == '1' or \
-		    ats_status_bit['src2_wave_bad'] == '1' \
+  src2_bad = '1' if ats_status_bit['src2_freq_bad'] == 1 or \
+		    ats_status_bit['src2_voltage_bad'] == 1 or \
+		    ats_status_bit['src2_wave_bad'] == 1 \
 		    else '0'
   queue_msg('voltage/src1_bad', src1_bad)
   queue_msg('voltage/src2_bad', src2_bad)

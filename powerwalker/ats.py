@@ -49,6 +49,11 @@ class ATS(Powerwalker):
 
     params = dict(zip(keys, values))
 
+    for key, value in params.items():
+      if key == 'status':
+        continue
+      params[key] = float(value)
+
     params['status'] = self.__status_code()
 
     return params

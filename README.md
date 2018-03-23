@@ -62,8 +62,8 @@ https://powerwalker.com/?item=10133001
 
 ### Shutdown method arguments
 * `idx` : output; `1` to `8`, `A` for all.
-* `shdn` : shutdown delay in minutes; `.1` to `.9`, `01` to `99`, `00` for immediate.
-* `rst` : restore delay in minutes; `0000` to `9999`, `0000` for 1 second.
+* `shdn` : shutdown delay in minutes; `0.1` to `0.9`, `1` to `99`, `0` for immediate.
+* `rst` : restore delay in minutes; `1` to `9999`, `0` for 1 second.
 
 ### Memory configuration map
 | Adr | Key | Unit | Min | Max | Default |
@@ -118,85 +118,85 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 
 ### `status()`
 ```py
-{   'in_current': '01.4',
-    'in_freq': '49.8',
-    'in_voltage': '226.9',
-    'int_temp': '35.0',
-    'out1_current': '00.0',
-    'out2_current': '00.3',
-    'out3_current': '00.0',
-    'out4_current': '00.3',
-    'out5_current': '00.1',
-    'out6_current': '00.2',
-    'out7_current': '00.2',
-    'out8_current': '00.0',
-    'status': {   'a01_low_in_voltage': '0',
-                  'a02_high_in_voltage': '0',
-                  'f09_low_in_current': '0',
-                  'f10_high_in_current': '0',
-                  'f11_pwr_fail_aux1': '0',
-                  'f12_pwr_fail_aux2': '0',
-                  'na_b8': '0',
-                  'na_b9': '0',
-                  'out1_status': '1',
-                  'out2_status': '1',
-                  'out3_status': '1',
-                  'out4_status': '1',
-                  'out5_status': '1',
-                  'out6_status': '1',
-                  'out7_status': '1',
-                  'out8_status': '1'}}
+{   'in_current': 2.1,
+    'in_freq': 49.8,
+    'in_voltage': 225.5,
+    'int_temp': 36.0,
+    'out1_current': 0.4,
+    'out2_current': 0.5,
+    'out3_current': 0.3,
+    'out4_current': 0.1,
+    'out5_current': 0.2,
+    'out6_current': 0.2,
+    'out7_current': 0.3,
+    'out8_current': 0.0,
+    'status': {   'a01_low_in_voltage': 0,
+                  'a02_high_in_voltage': 0,
+                  'f09_low_in_current': 0,
+                  'f10_high_in_current': 0,
+                  'f11_pwr_fail_aux1': 0,
+                  'f12_pwr_fail_aux2': 0,
+                  'na_b8': 0,
+                  'na_b9': 0,
+                  'out1_status': 1,
+                  'out2_status': 1,
+                  'out3_status': 1,
+                  'out4_status': 1,
+                  'out5_status': 1,
+                  'out6_status': 1,
+                  'out7_status': 1,
+                  'out8_status': 1}}
 ```
 
 ### `power_w()`
 ```py
-{   'in_w': '0249',
-    'out1_w': '0000',
-    'out2_w': '0042',
-    'out3_w': '0000',
-    'out4_w': '0083',
-    'out5_w': '0000',
-    'out6_w': '0043',
-    'out7_w': '0031',
-    'out8_w': '0000'}
+{   'in_w': 441,
+    'out1_w': 62,
+    'out2_w': 108,
+    'out3_w': 74,
+    'out4_w': 37,
+    'out5_w': 39,
+    'out6_w': 33,
+    'out7_w': 57,
+    'out8_w': 0}
 ```
 
 ### `power_va()`
 ```py
-{   'in_va': '0338',
-    'out1_va': '0000',
-    'out2_va': '0079',
-    'out3_va': '0000',
-    'out4_va': '0090',
-    'out5_va': '0036',
-    'out6_va': '0049',
-    'out7_va': '0063',
-    'out8_va': '0000'}
+{   'in_va': 478,
+    'out1_va': 108,
+    'out2_va': 123,
+    'out3_va': 83,
+    'out4_va': 47,
+    'out5_va': 43,
+    'out6_va': 65,
+    'out7_va': 70,
+    'out8_va': 0}
 ```
 
 ### `energy_kwh()`
 ```py
-{   'in_kwh': '000702.2',
-    'out1_kwh': '000000.0',
-    'out2_kwh': '000101.0',
-    'out3_kwh': '000011.8',
-    'out4_kwh': '000110.7',
-    'out5_kwh': '000198.9',
-    'out6_kwh': '000104.0',
-    'out7_kwh': '000046.3',
-    'out8_kwh': '000019.8'}
+{   'in_kwh': 725.9,
+    'out1_kwh': 4.3,
+    'out2_kwh': 103.4,
+    'out3_kwh': 17.4,
+    'out4_kwh': 114.0,
+    'out5_kwh': 201.9,
+    'out6_kwh': 106.8,
+    'out7_kwh': 47.6,
+    'out8_kwh': 19.8}
 ```
 
 ### `countdown_times()`
 ```py
-{   'out1_cd_sec': {'r': '000000', 's': '0000'},
-    'out2_cd_sec': {'r': '000000', 's': '0000'},
-    'out3_cd_sec': {'r': '000000', 's': '0000'},
-    'out4_cd_sec': {'r': '000000', 's': '0000'},
-    'out5_cd_sec': {'r': '000000', 's': '0000'},
-    'out6_cd_sec': {'r': '000000', 's': '0000'},
-    'out7_cd_sec': {'r': '000000', 's': '0000'},
-    'out8_cd_sec': {'r': '000000', 's': '0000'}}
+{   'out1_cd_sec': {'r': 0, 's': 0},
+    'out2_cd_sec': {'r': 0, 's': 0},
+    'out3_cd_sec': {'r': 0, 's': 0},
+    'out4_cd_sec': {'r': 0, 's': 0},
+    'out5_cd_sec': {'r': 0, 's': 0},
+    'out6_cd_sec': {'r': 0, 's': 0},
+    'out7_cd_sec': {'r': 0, 's': 0},
+    'out8_cd_sec': {'r': 0, 's': 0}}
 ```
 
 ### `protocol()`
@@ -206,7 +206,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 
 ### `firmware()`
 ```py
-{'verfw': '00.15'}
+{'verfw': 0.15}
 ```
 
 ### `memory_get(0)`
@@ -275,38 +275,38 @@ https://powerwalker.com/?item=10120543
 
 ### `status()`
 ```py
-{   'int_temp': '34.0',
-    'out_current': '001.6',
-    'out_load_pct': '009',
-    'src1_freq': '50.0',
-    'src1_voltage': '227.3',
-    'src2_freq': '50.0',
-    'src2_voltage': '228.5',
-    'status': {   'aux_pwr1_fail': '0',
-                  'aux_pwr2_fail': '0',
-                  'na_c0': '0',
-                  'na_c1': '0',
-                  'na_c2': '0',
-                  'na_c3': '0',
-                  'na_c4': '0',
-                  'na_c5': '0',
-                  'na_c6': '0',
-                  'na_c7': '0',
-                  'on_fault_mode': '0',
-                  'on_src1': '1',
-                  'on_src2': '0',
-                  'overload_alarm': '0',
-                  'overload_fault': '0',
-                  'preferred_src2': '0',
-                  'short_fault': '0',
-                  'src1_freq_bad': '0',
-                  'src1_voltage_bad': '0',
-                  'src1_wave_bad': '0',
-                  'src2_freq_bad': '0',
-                  'src2_voltage_bad': '0',
-                  'src2_wave_bad': '0',
-                  'syncron_bad': '0'},
-    'sync_angle': '001'}
+{   'int_temp': 35.0,
+    'out_current': 2.2,
+    'out_load_pct': 14.0,
+    'src1_freq': 50.0,
+    'src1_voltage': 227.3,
+    'src2_freq': 50.0,
+    'src2_voltage': 227.3,
+    'status': {   'aux_pwr1_fail': 0,
+                  'aux_pwr2_fail': 0,
+                  'na_c0': 0,
+                  'na_c1': 0,
+                  'na_c2': 0,
+                  'na_c3': 0,
+                  'na_c4': 0,
+                  'na_c5': 0,
+                  'na_c6': 0,
+                  'na_c7': 0,
+                  'on_fault_mode': 0,
+                  'on_src1': 1,
+                  'on_src2': 0,
+                  'overload_alarm': 0,
+                  'overload_fault': 0,
+                  'preferred_src2': 0,
+                  'short_fault': 0,
+                  'src1_freq_bad': 0,
+                  'src1_voltage_bad': 0,
+                  'src1_wave_bad': 0,
+                  'src2_freq_bad': 0,
+                  'src2_voltage_bad': 0,
+                  'src2_wave_bad': 0,
+                  'syncron_bad': 0},
+    'sync_angle': 1.0}
 ```
 
 ### `protocol()`
@@ -316,7 +316,7 @@ https://powerwalker.com/?item=10120543
 
 ### `firmware()`
 ```py
-{'verfw': '00181.00'}
+{'verfw': 181.0}
 ```
 
 ### `memory_get(0)`
@@ -336,11 +336,11 @@ Run test sequence on PDU:
 
 Shutdown output 8 in 0.5 minutes:
 
-    $ python3 cli.py pdu shutdown 8 .5
+    $ python3 cli.py pdu shutdown 8 0.5
 
 Shutdown output 8 in 2 minutes, restore after 1 second:
 
-    $ python3 cli.py pdu shutdown_restore 8 02 0000
+    $ python3 cli.py pdu shutdown_restore 8 2 0
 
 Cancel pending shutdown on output 8
 

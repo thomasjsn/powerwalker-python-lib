@@ -32,7 +32,7 @@ class Powerwalker:
     i = 0
 
     for status in list(code):
-      d[keys[i]] = status
+      d[keys[i]] = int(status)
       i += 1
 
     return d
@@ -49,4 +49,4 @@ class Powerwalker:
     """Get and return device firmware version."""
     values = self.send('QVFW').split(':')
 
-    return { values[0].lower(): values[1] }
+    return { values[0].lower(): float(values[1]) }

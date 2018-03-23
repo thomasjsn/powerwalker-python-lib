@@ -75,6 +75,11 @@ class PDU(Powerwalker):
 
     params = dict(zip(keys, values))
 
+    for key, value in params.items():
+      if key == 'status':
+        continue
+      params[key] = float(value)
+
     params['status'] = super().status_code(values[0], status_keys)
 
     return params
@@ -97,6 +102,9 @@ class PDU(Powerwalker):
 
     params = dict(zip(keys, values))
 
+    for key, value in params.items():
+      params[key] = int(value)
+
     return params
 
 
@@ -116,6 +124,9 @@ class PDU(Powerwalker):
     ]
 
     params = dict(zip(keys, values))
+
+    for key, value in params.items():
+      params[key] = int(value)
 
     return params
 
@@ -137,6 +148,9 @@ class PDU(Powerwalker):
 
     params = dict(zip(keys, values))
 
+    for key, value in params.items():
+      params[key] = float(value)
+
     return params
 
 
@@ -155,7 +169,9 @@ class PDU(Powerwalker):
 
     for x in range(0, 8):
       idx = x * 3
-      triplets['out' + str(x+1) + '_cd_sec'] = {'s': values[idx+1][0:4], 'r': (values[idx+2][0:6])}
+      s_sec = int(values[idx+1][0:4])
+      r_sec = int(values[idx+2][0:6])
+      triplets['out' + str(x+1) + '_cd_sec'] = {'s': s_sec, 'r': r_sec}
 
     return triplets
 
@@ -167,7 +183,9 @@ class PDU(Powerwalker):
     idx  : output; 1 to 8, A for all
     shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
     """
-    response = self.send('S,' + idx + shdn)
+    shdn_str = shdn[1:3] if float(shdn) < 1 else '{:02d}'.format(int(shdn))
+
+    response = self.send('S,' + idx + shdn_str)
 
     return response
 
@@ -180,7 +198,10 @@ class PDU(Powerwalker):
     shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
     rst  : restore delay in minutes; 0000 to 9999, 0000 for 1 second
     """
-    response = self.send('S,' + idx + shdn + 'R' + rst)
+    shdn_str = shdn[1:3] if float(shdn) < 1 else '{:02d}'.format(int(shdn))
+    rst_str = '{:04d}'.format(int(rst))
+
+    response = self.send('S,' + idx + shdn_str + 'R' + rst_str)
 
     return response
 
