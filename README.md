@@ -16,7 +16,7 @@ To make sure that the `mqtt.py` script keeps running; I'm using [Supervisor](htt
 ## Communicate
 Connect either the USB or the serial port, find the correct device path and instantiate:
 
-```pyhton
+```py
 import powerwalker
 
 pdu = powerwalker.PDU("/dev/ttyUSB0")
@@ -107,7 +107,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 * `NAK` if command was **not** accepted.
 
 ### `info()`
-```
+```py
 {   'in_out_phase': '1/1',
     'in_socket_no': '1',
     'model': '############PDU',
@@ -117,7 +117,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `status()`
-```
+```py
 {   'in_current': '01.4',
     'in_freq': '49.8',
     'in_voltage': '226.9',
@@ -149,7 +149,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `power_w()`
-```
+```py
 {   'in_w': '0249',
     'out1_w': '0000',
     'out2_w': '0042',
@@ -162,7 +162,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `power_va()`
-```
+```py
 {   'in_va': '0338',
     'out1_va': '0000',
     'out2_va': '0079',
@@ -175,7 +175,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `energy_kwh()`
-```
+```py
 {   'in_kwh': '000702.2',
     'out1_kwh': '000000.0',
     'out2_kwh': '000101.0',
@@ -188,7 +188,7 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `countdown_times()`
-```
+```py
 {   'out1_cd_sec': {'r': '000000', 's': '0000'},
     'out2_cd_sec': {'r': '000000', 's': '0000'},
     'out3_cd_sec': {'r': '000000', 's': '0000'},
@@ -200,22 +200,22 @@ Memory address 1 to 8 also contains output configuration byte, key: `out?_config
 ```
 
 ### `protocol()`
-```
+```py
 {'prot_id': 'PI90'}
 ```
 
 ### `firmware()`
-```
+```py
 {'verfw': '00.15'}
 ```
 
 ### `memory_get(0)`
-```
+```py
 {'output_start_up_delay': 1}
 ```
 
 ### `memory_get(1)`
-```
+```py
 {'out1_config': 255, 'out1_current_alarm': 20}
 ```
 
@@ -266,7 +266,7 @@ https://powerwalker.com/?item=10120543
 ## Example responses
 
 ### `info()`
-```
+```py
 {   'battery_voltage': '---.-',
     'rated_output_current': '016',
     'rated_output_freq': '50.0',
@@ -274,7 +274,7 @@ https://powerwalker.com/?item=10120543
 ```
 
 ### `status()`
-```
+```py
 {   'int_temp': '34.0',
     'out_current': '001.6',
     'out_load_pct': '009',
@@ -310,41 +310,41 @@ https://powerwalker.com/?item=10120543
 ```
 
 ### `protocol()`
-```
+```py
 {'prot_id': 'PI97'}
 ```
 
 ### `firmware()`
-```
+```py
 {'verfw': '00181.00'}
 ```
 
 ### `memory_get(0)`
-```
+```py
 {'src1_voltage_high_loss': 258}
 ```
 
 # CLI
 For easy access to the device methods; use `cli.py`:
 
-    python3 cli.py device method arguments
+    $ python3 cli.py device method arguments
 
 ## Examples
 Run test sequence on PDU:
 
-    python3 cli.py pdu test
+    $ python3 cli.py pdu test
 
 Shutdown output 8 in 0.5 minutes:
 
-    python3 cli.py pdu shutdown 8 .5
+    $ python3 cli.py pdu shutdown 8 .5
 
 Shutdown output 8 in 2 minutes, restore after 1 second:
 
-    python3 cli.py pdu shutdown_restore 8 02 0000
+    $ python3 cli.py pdu shutdown_restore 8 02 0000
 
 Cancel pending shutdown on output 8
 
-    python3 cli.py pdu shutdown_cancel 8
+    $ python3 cli.py pdu shutdown_cancel 8
 
 # Script files
 * `cli.py`: Simple command line interface
