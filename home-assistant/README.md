@@ -1,5 +1,7 @@
 # Home Assistant examples
-I am using [Home-Assistant](https://home-assistant.io/) to show data from my ATS and PDU, here is some of my config:
+I am using [Home-Assistant](https://home-assistant.io/) to show data from my ATS and PDU, here is some of my config.
+
+![Home Assistant homelab power](hass_homelab_power.jpg)
 
 ## Sensors
 ```yml
