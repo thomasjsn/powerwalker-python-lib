@@ -348,9 +348,7 @@ Cancel pending shutdown on output 8
 
 # Script files
 * `cli.py`: Simple command line interface
-* `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
-* `status.py`: Get and print statuses.
 
 # Useful resources
 * [Persistent names for usb-serial devices](http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/)
