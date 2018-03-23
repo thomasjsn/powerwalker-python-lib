@@ -5,8 +5,8 @@ import sys
 pp = pprint.PrettyPrinter(indent=4)
 
 # Define PDU and serial port, print status
-pdu = powerwalker.PDU("/dev/ttyUSB0")
-ats = powerwalker.ATS("/dev/ttyUSB1")
+pdu = powerwalker.PDU("/dev/ttyUSB1")
+ats = powerwalker.ATS("/dev/ttyUSB0")
 
 if len(sys.argv) < 3:
   raise ValueError('Missing arguments.')

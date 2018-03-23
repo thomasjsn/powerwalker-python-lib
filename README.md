@@ -5,7 +5,11 @@ There was no Linux software available for the PowerWalker PDU and ATS, but the [
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab_ats_pdu_front.jpg)
 
-I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. I use MQTT to communicate with it, and report power usage etc. to things like [Home Assistant](https://home-assistant.io/). For graphing I'll be storing values in [Elasticsearch](https://www.elastic.co/products/elasticsearch) and displaying the data using [Kibana](https://www.elastic.co/products/kibana).
+I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. It's best practice to have a single application responsible for communicating with the devices, as you will get communication errors if two applications tries to talk to the same device at the same time.
+
+I am using the `mqtt.py` script to publish ATS and PDU data on the MQTT network. Then you can have multiple clients subscribe to the respective MQTT topics, like [Home Assistant](https://home-assistant.io/). To put data in [Elasticsearch](https://www.elastic.co/products/elasticsearch) I am using another Pyhton script that "moves" data from certain MQTT topics into Elasticsearch indices. Then you can use [Kibana](https://www.elastic.co/products/kibana) to graph and visualize that data.
+
+To make sure that the `mqtt.py` script keeps running; I'm using [Supervisor](http://supervisord.org/).
 
 **Note!** Methods and keys may change; as I am still investigating use cases and best practices.
 
@@ -347,6 +351,9 @@ Cancel pending shutdown on output 8
 * `info.py`: Get and print device information.
 * `mqtt.py`: Publishing values to a MQTT broker.
 * `status.py`: Get and print statuses.
+
+# Useful resources
+* [Persistent names for usb-serial devices](http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/)
 
 # Author
 [Thomas Jensen](https://www.thomasjensen.me/)
