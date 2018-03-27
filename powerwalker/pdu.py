@@ -181,7 +181,7 @@ class PDU(Powerwalker):
 
     Arguments:
     idx  : output; 1 to 8, A for all
-    shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
+    shdn : shutdown delay in minutes; 0.1 to 0.9, 1 to 99, 0 for immediate
     """
     shdn_str = shdn[1:3] if float(shdn) < 1 else '{:02d}'.format(int(shdn))
 
@@ -195,8 +195,8 @@ class PDU(Powerwalker):
 
     Arguments:
     idx  : output; 1 to 8, A for all
-    shdn : shutdown delay in minutes; .1 to .9, 01 to 99, 00 for immediate
-    rst  : restore delay in minutes; 0000 to 9999, 0000 for 1 second
+    shdn : shutdown delay in minutes; 0.1 to 0.9, 1 to 99, 0 for immediate
+    rst  : restore delay in minutes; 1 to 9999, 0 for 1 second
     """
     shdn_str = shdn[1:3] if float(shdn) < 1 else '{:02d}'.format(int(shdn))
     rst_str = '{:04d}'.format(int(rst))
