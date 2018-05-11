@@ -347,8 +347,9 @@ Cancel pending shutdown on output 8
     $ python3 cli.py pdu shutdown_cancel 8
 
 # Script files
-* `cli.py`: Simple command line interface
-* `mqtt.py`: Publishing values to a MQTT broker.
+* `cli.py`: Simple command line interface.
+* `mqtt.py`: Publishing values to MQTT.
+* `ups.py`: Get UPS data from `upsc` and publish to MQTT.
 
 # Useful resources
 * [Persistent names for usb-serial devices](http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/)

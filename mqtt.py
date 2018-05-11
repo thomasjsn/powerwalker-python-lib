@@ -15,20 +15,22 @@ topics = {
   'in_w': 'supply',
   'out1_w': 'network',
   'out2_w': 'desktop',
-  'out3_w': 'beta',
+  'out3_w': 'sigma',
   'out4_w': 'alpha',
-  'out5_w': 'omega',
-  'out6_w': 'synology',
+  'out5_w': 'zeta',
+  'out6_w': 'laptop',
   'out7_w': 'peripherals',
   'out8_w': 'aux',
   'src1_voltage': 'src1',
-  'src2_voltage': 'src2'
+  'src2_voltage': 'src2',
+  'out_current': 'current'
 }
 
 # Define what status codes from ATS to publish
 ats_fetch = [
   'src1_voltage',
   'src2_voltage',
+  'out_current',
   ['on_src1', 'on_src2', 'preferred_src2']
 ]
 
@@ -97,4 +99,4 @@ while True:
 
   publish.multiple(msgs, hostname="vm-mqtt")
 
-  time.sleep(20)
+  time.sleep(5)
