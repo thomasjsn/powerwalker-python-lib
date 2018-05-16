@@ -1,6 +1,9 @@
 import powerwalker
 import paho.mqtt.publish as publish
+import paho.mqtt.client as mqtt
 import time
+import re
+import queue
 
 # Define devices and serial port
 ats = powerwalker.ATS("/dev/ttyUSB0")
@@ -36,6 +39,38 @@ ats_fetch = [
 
 # Empty dictionary to hold messages
 msgs = []
+
+# Make a queue for holding set commands
+q = queue.Queue()
+
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe("homelab/outlet/+/+")
+
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print(msg.topic + " " + str(msg.payload))
+    topic_outlet = re.match('homelab\/outlet\/out([1-8])_status\/set', msg.topic)
+    if not msg.topic is None:
+        idx = topic_outlet.group(1)
+        value = bool(int(msg.payload.decode('utf-8')))
+        q.put([str(idx), value])
+
+
+def set_pdu_outlet(idx, value):
+    if idx not in ["6"]:
+        raise ValueError("Outlet state change not allowed!")
+
+    if value:
+        pdu.shutdown_restore(str(idx), "0.1", "0")
+    else:
+        pdu.shutdown(str(idx), "0.1")
 
 
 def queue_msg(topic, payload):
@@ -87,16 +122,32 @@ def check_supply_sources():
   queue_msg('voltage/src2_bad', src2_bad)
 
 
+client = mqtt.Client('powerwalker')
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect("192.168.1.119", 1883, 60)
+client.loop_start()
+
+
 while True:
+  # Check pending commands and do them
+  while not q.empty():
+    set_cmd = q.get()
+    set_pdu_outlet(set_cmd[0], set_cmd[1])
+
+  # Query modules
   pdu_power = pdu.power_w()
   pdu_status = pdu.status()
   ats_status = ats.status()
 
+  # Parse data
   get_power_use()
   get_pdu_status()
   get_ats_status()
   check_supply_sources()
 
+  # Publish it to MQTT
   publish.multiple(msgs, hostname="vm-mqtt")
 
+  # Rest before doing it again
   time.sleep(5)
