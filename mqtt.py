@@ -26,14 +26,21 @@ topics = {
   'out8_w': 'aux',
   'src1_voltage': 'src1',
   'src2_voltage': 'src2',
-  'out_current': 'current'
+  'out_current': 'current',
+  'int_temp': 'temp_c'
 }
+
+# Define what status codes from PDU to publish
+pdu_fetch = [
+  'int_temp'
+]
 
 # Define what status codes from ATS to publish
 ats_fetch = [
   'src1_voltage',
   'src2_voltage',
   'out_current',
+  'int_temp',
   ['on_src1', 'on_src2', 'preferred_src2']
 ]
 
@@ -95,6 +102,14 @@ def get_pdu_status():
     key = 'out' + str(i) + '_status'
     queue_msg('outlet/' + key, pdu_status['status'][key])
 
+  for pdu_status_code in pdu_fetch:
+
+    if isinstance(pdu_status_code, list):
+      for pdu_status_bit in pdu_status_code:
+        queue_msg('pdu/' + pdu_status_bit, pdu_status['status'][pdu_status_bit])
+    else:
+      queue_msg('pdu/' + topics[pdu_status_code], pdu_status[pdu_status_code])
+
 
 # Get defined status codes and bits from ATS
 def get_ats_status():
@@ -102,9 +117,9 @@ def get_ats_status():
 
     if isinstance(ats_status_code, list):
       for ats_status_bit in ats_status_code:
-        queue_msg('voltage/' + ats_status_bit, ats_status['status'][ats_status_bit])
+        queue_msg('ats/' + ats_status_bit, ats_status['status'][ats_status_bit])
     else:
-      queue_msg('voltage/' + topics[ats_status_code], ats_status[ats_status_code])
+      queue_msg('ats/' + topics[ats_status_code], ats_status[ats_status_code])
 
 
 # Check source error codes on ATS
@@ -118,8 +133,8 @@ def check_supply_sources():
 		    ats_status_bit['src2_voltage_bad'] == 1 or \
 		    ats_status_bit['src2_wave_bad'] == 1 \
 		    else '0'
-  queue_msg('voltage/src1_bad', src1_bad)
-  queue_msg('voltage/src2_bad', src2_bad)
+  queue_msg('ats/src1_bad', src1_bad)
+  queue_msg('ats/src2_bad', src2_bad)
 
 
 client = mqtt.Client('powerwalker')
