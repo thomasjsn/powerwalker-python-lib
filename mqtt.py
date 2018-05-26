@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 import time
 import re
 import queue
+import config as cfg
 
 # Define devices and serial port
 ats = powerwalker.ATS("/dev/ttyUSB0")
@@ -137,10 +138,12 @@ def check_supply_sources():
   queue_msg('ats/src2_bad', src2_bad)
 
 
-client = mqtt.Client('powerwalker')
+client = mqtt.Client('pw_command')
+client.username_pw_set(cfg.mqtt['username'], password=cfg.mqtt['password'])
+
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect("192.168.1.119", 1883, 60)
+client.connect("192.168.1.2")
 client.loop_start()
 
 
@@ -162,7 +165,7 @@ while True:
   check_supply_sources()
 
   # Publish it to MQTT
-  publish.multiple(msgs, hostname="vm-mqtt")
+  publish.multiple(msgs, hostname="192.168.1.2", client_id="pw_status", auth=cfg.mqtt)
 
   # Rest before doing it again
   time.sleep(5)
