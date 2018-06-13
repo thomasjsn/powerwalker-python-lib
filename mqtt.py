@@ -5,28 +5,29 @@ import time
 import re
 import queue
 import config as cfg
+import json
 
 # Define devices and serial port
 ats = powerwalker.ATS("/dev/ttyUSB0")
 pdu = powerwalker.PDU("/dev/ttyUSB1")
 
-pdu_power = {}
 pdu_status = {}
+pdu_countdown = {}
 ats_status = {}
+pdu_power_w = {}
+pdu_power_va = {}
 
 # Translate responses into more readable topics
 topics = {
-  'in_w': 'supply',
-  'out1_w': 'network',
-  'out2_w': 'desktop',
-  'out3_w': 'sigma',
-  'out4_w': 'alpha',
-  'out5_w': 'zeta',
-  'out6_w': 'laptop',
-  'out7_w': 'peripherals',
-  'out8_w': 'aux',
-  'src1_voltage': 'src1',
-  'src2_voltage': 'src2',
+  'in': 'supply',
+  'out1': 'network',
+  'out2': 'desktop',
+  'out3': 'sigma',
+  'out4': 'alpha',
+  'out5': 'zeta',
+  'out6': 'laptop',
+  'out7': 'peripherals',
+  'out8': 'aux',
   'out_current': 'current',
   'int_temp': 'temp_c'
 }
@@ -36,10 +37,19 @@ pdu_fetch = [
   'int_temp'
 ]
 
+# All states an outlet can have
+pdu_outlet_states = [
+  'Off',
+  'On',
+  'Shutdown active',
+  'Shutdown imminent',
+  'Restore active',
+  'Overload alarm',
+  'Locked'
+]
+
 # Define what status codes from ATS to publish
 ats_fetch = [
-  'src1_voltage',
-  'src2_voltage',
   'out_current',
   'int_temp',
   ['on_src1', 'on_src2', 'preferred_src2']
@@ -64,7 +74,7 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.payload))
-    topic_outlet = re.match('homelab\/outlet\/out([1-8])_status\/set', msg.topic)
+    topic_outlet = re.match('homelab\/outlet\/out([1-8])\/set', msg.topic)
     if not msg.topic is None:
         idx = topic_outlet.group(1)
         value = bool(int(msg.payload.decode('utf-8')))
@@ -93,15 +103,31 @@ def queue_msg(topic, payload):
 
 # Get actual power use in watt
 def get_power_use():
-  for watt in pdu_power.items():
-    queue_msg('power/' + topics[watt[0]], watt[1])
+  for watt in pdu_power_w.items():
+    key = watt[0][:-2]
+
+    data = {
+      'w': watt[1],
+      'va': pdu_power_va[key + '_va'],
+      'a': pdu_status[key + '_current']
+    }
+
+    queue_msg('power/' + topics[key], json.dumps(data))
 
 
 # Get defined status codes and bits from PDU
 def get_pdu_status():
   for i in range(1,9):
-    key = 'out' + str(i) + '_status'
-    queue_msg('outlet/' + key, pdu_status['status'][key])
+    key = 'out' + str(i)
+
+    data = {
+      'status': pdu_status['status'][key + '_status'],
+      'state':  pdu_outlet_states[pdu_status['status'][key + '_status']],
+      'restore_sec': pdu_countdown[key + '_cd_sec']['r'],
+      'shutdown_sec': pdu_countdown[key + '_cd_sec']['s']
+    }
+
+    queue_msg('outlet/' + key, json.dumps(data))
 
   for pdu_status_code in pdu_fetch:
 
@@ -125,17 +151,26 @@ def get_ats_status():
 
 # Check source error codes on ATS
 def check_supply_sources():
-  ats_status_bit = ats_status['status']
-  src1_bad = '1' if ats_status_bit['src1_freq_bad'] == 1 or \
-		    ats_status_bit['src1_voltage_bad'] == 1 or \
-		    ats_status_bit['src1_wave_bad'] == 1 \
-		    else '0'
-  src2_bad = '1' if ats_status_bit['src2_freq_bad'] == 1 or \
-		    ats_status_bit['src2_voltage_bad'] == 1 or \
-		    ats_status_bit['src2_wave_bad'] == 1 \
-		    else '0'
-  queue_msg('ats/src1_bad', src1_bad)
-  queue_msg('ats/src2_bad', src2_bad)
+  for i in range(1,3):
+    key = 'src' + str(i)
+    preferred = 'src2' if ats_status['status']['preferred_src2'] == 1 else 'src1'
+
+    data = {
+      'v': ats_status[key + '_voltage'],
+      'hz': ats_status[key + '_freq'],
+      'active': ats_status['status']['on_' + key],
+      'preferred': 1 if preferred == key else 0
+    }
+
+    queue_msg('ats/' + key, json.dumps(data))
+
+    ats_status_bit = ats_status['status']
+    bad = '1' if ats_status_bit[key + '_freq_bad'] == 1 or \
+	         ats_status_bit[key + '_voltage_bad'] == 1 or \
+	         ats_status_bit[key + '_wave_bad'] == 1 \
+	         else '0'
+
+    queue_msg('ats/' + key + '_bad', bad)
 
 
 client = mqtt.Client('pw_command')
@@ -153,14 +188,20 @@ while True:
     set_cmd = q.get()
     set_pdu_outlet(set_cmd[0], set_cmd[1])
 
-  # Query modules
-  pdu_power = pdu.power_w()
+  # Query PDU
   pdu_status = pdu.status()
+  pdu_countdown = pdu.countdown_times()
+  pdu_power_w = pdu.power_w()
+  pdu_power_va = pdu.power_va()
+
+  # Parse data from PDU
+  get_pdu_status()
+  get_power_use()
+
+  # Query ATS
   ats_status = ats.status()
 
-  # Parse data
-  get_power_use()
-  get_pdu_status()
+  # Parse data from ATS
   get_ats_status()
   check_supply_sources()
 
