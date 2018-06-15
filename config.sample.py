@@ -1,3 +1,5 @@
+# Sample configuration file for the mqtt.py script.
+
 port = {
   'ats': "/dev/ttyUSB0",
   'pdu': "/dev/ttyUSB1"
