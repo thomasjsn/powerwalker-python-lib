@@ -7,7 +7,7 @@ There was no Linux software available for the PowerWalker PDU and ATS, but the [
 
 I'm using a Raspberry Pi as a power manager in my [homelab](https://www.thomasjensen.me/homelab/), it is connected to both the PDU and ATS. It's best practice to have a single application responsible for communicating with the devices, as you will get communication errors if two applications tries to talk to the same device at the same time.
 
-I am using the `mqtt.py` script to publish ATS and PDU data on the MQTT network. Then you can have multiple clients subscribe to the respective MQTT topics, like [Home Assistant](https://home-assistant.io/). To put data in [Elasticsearch](https://www.elastic.co/products/elasticsearch) I am using another Pyhton script that "moves" data from certain MQTT topics into Elasticsearch indices. Then you can use [Kibana](https://www.elastic.co/products/kibana) to graph and visualize that data.
+I am using the `mqtt.py` script to publish ATS and PDU data on the MQTT network. Then you can have multiple clients subscribe to the respective MQTT topics, like [Home Assistant](https://home-assistant.io/). To visualize the data I use the [Home Assistant InfluxDB component](https://www.home-assistant.io/components/influxdb/), then [Grafana](https://grafana.com/) pulls the data from [InfluxDB](https://www.influxdata.com/) and makes [cool graphs](media/homelab_servers_grafana.jpg).
 
 To make sure that the `mqtt.py` script keeps running; I'm using [Supervisor](http://supervisord.org/).
 
@@ -352,7 +352,7 @@ To publish ATS and PDU data to MQTT; use `mqtt.py`:
     $ python3 mqtt.py
 
 ## Publish sample
-```
+```py
 pdu/outlet/out1 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
 pdu/outlet/out2 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
 pdu/outlet/out3 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
