@@ -351,7 +351,22 @@ To publish ATS and PDU data to MQTT; use `mqtt.py`:
 
     $ python3 mqtt.py
 
-## Publish sample
+Make sure to rename `config.sample.py` to `config.py` and set the correct settings.
+
+## Outlet state change (PDU)
+The MQTT script subscribes to `cfg.mqtt['prefix'] + "/pdu/outlet/+/+"`; to change the state of an outlet use topic:
+
+    your_prefix/pdu/outlet/out[1-8]/set
+
+Payload can be `0`, `1` or anything that Python casts as a boolean value.
+
+All incoming commands are queued so not to interrupt any ongoing serial communication,
+at the start of each loop cycle all pending commands are performed.
+
+Note that the state change is not immediate, there is a slight delay were the PDU warn of outlet imminent shutdown.
+Also note that if an outlet is not listed in the config file as "allowed state change"; a `ValueError` exception is raised.
+
+## Sample topics
 ```py
 pdu/outlet/out1 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
 pdu/outlet/out2 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
@@ -374,7 +389,6 @@ pdu/power/out4 {"va": 63, "w": 50, "a": 0.1}
 ats/supply/src1 {"preferred": 1, "hz": 50.0, "bad": "0", "active": 1, "v": 229.7}
 ats/supply/src2 {"preferred": 0, "hz": 50.0, "bad": "0", "active": 0, "v": 230.9}
 ats/status {"out_pct": 10.0, "overload_alarm": 0, "overload_fault": 0, "out_a": 1.4, "syncron_bad": 0, "aux_pwr2_fail": 0, "sync_angle": 1.0, "temp_c": 32.0, "on_fault_mode": 0, "short_fault": 0, "aux_pwr1_fail": 0}
-
 ```
 
 # Script files
