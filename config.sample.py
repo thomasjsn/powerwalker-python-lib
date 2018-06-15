@@ -1,4 +1,4 @@
-# Sample configuration file for the mqtt.py script.
+# Sample configuration file for the mqtt.py/ups.py scripts
 
 port = {
   'ats': "/dev/ttyUSB0",
