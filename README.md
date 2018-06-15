@@ -346,6 +346,37 @@ Cancel pending shutdown on output 8
 
     $ python3 cli.py pdu shutdown_cancel 8
 
+# MQTT
+To publish ATS and PDU data to MQTT; use `mqtt.py`:
+
+    $ python3 mqtt.py
+
+## Publish sample
+```
+pdu/outlet/out1 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out2 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out3 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out4 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out5 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out6 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out7 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/outlet/out8 {"shutdown_sec": 0, "state": "On", "status": 1, "restore_sec": 0}
+pdu/status {"pwr_fail_aux2": 0, "low_in_voltage": 0, "pwr_fail_aux1": 0, "high_in_current": 0, "temp_c": 33.0, "low_in_current": 0, "in_hz": 49.8, "high_in_voltage": 0, "in_v": 228.2}
+pdu/power/out1 {"va": 95, "w": 76, "a": 0.4}
+pdu/power/out6 {"va": 0, "w": 0, "a": 0.0}
+pdu/power/out7 {"va": 0, "w": 0, "a": 0.0}
+pdu/power/out2 {"va": 0, "w": 0, "a": 0.0}
+pdu/power/out3 {"va": 92, "w": 89, "a": 0.4}
+pdu/power/out8 {"va": 0, "w": 0, "a": 0.0}
+pdu/power/in {"va": 318, "w": 266, "a": 1.4}
+pdu/power/out5 {"va": 65, "w": 60, "a": 0.2}
+pdu/power/out4 {"va": 63, "w": 50, "a": 0.1}
+ats/supply/src1 {"preferred": 1, "hz": 50.0, "bad": "0", "active": 1, "v": 229.7}
+ats/supply/src2 {"preferred": 0, "hz": 50.0, "bad": "0", "active": 0, "v": 230.9}
+ats/status {"out_pct": 10.0, "overload_alarm": 0, "overload_fault": 0, "out_a": 1.4, "syncron_bad": 0, "aux_pwr2_fail": 0, "sync_angle": 1.0, "temp_c": 32.0, "on_fault_mode": 0, "short_fault": 0, "aux_pwr1_fail": 0}
+
+```
+
 # Script files
 * `cli.py`: Simple command line interface.
 * `mqtt.py`: Publishing values to MQTT.
