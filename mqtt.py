@@ -1,5 +1,4 @@
 import powerwalker
-import paho.mqtt.publish as publish
 import paho.mqtt.client as mqtt
 import time
 import re
@@ -28,10 +27,10 @@ pdu_outlet_states = [
   'Locked'
 ]
 
-# Empty dictionary to hold messages
-msgs = []
+# Queue for messages to be published
+msgs = queue.Queue()
 
-# Make a queue for holding set commands
+# Queue for holding set commands
 q = queue.Queue()
 
 
@@ -42,6 +41,12 @@ def on_connect(client, userdata, flags, rc):
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe(cfg.mqtt['prefix'] + "/pdu/outlet/+/+")
+
+    if rc==0:
+        client.connected_flag=True
+        client.publish("$CONNECTED/" + cfg.mqtt['client_id'], 1, retain=True)
+    else:
+        client.bad_connection_flag=True
 
 
 # The callback for when a PUBLISH message is received from the server.
@@ -65,7 +70,7 @@ def set_pdu_outlet(idx, value):
 
 
 def queue_msg(topic, payload):
-  msgs.append({
+  msgs.put({
     'topic': cfg.mqtt['prefix'] + '/' + topic,
     'payload': payload,
     'qos': 0,
@@ -156,12 +161,13 @@ def get_ats_status():
   queue_msg('ats/status', json.dumps(status_data))
 
 
-client = mqtt.Client('pw_command')
+client = mqtt.Client(cfg.mqtt['client_id'])
 client.username_pw_set(cfg.mqtt['auth']['username'], password=cfg.mqtt['auth']['password'])
 
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect(cfg.mqtt['ip'])
+client.will_set("$CONNECTED/" + cfg.mqtt['client_id'], 0, qos=0, retain=True)
+client.connect(cfg.mqtt['host'])
 client.loop_start()
 
 
@@ -188,8 +194,7 @@ while True:
   get_ats_status()
 
   # Publish it to MQTT
-  publish.multiple(msgs, hostname=cfg.mqtt['ip'], client_id="pw_status", auth=cfg.mqtt['auth'])
+  while not msgs.empty():
+      client.publish(**msgs.get())
 
-  # Rest before doing it again
-  #time.sleep(5)
   print('--- End of loop ---')

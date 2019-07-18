@@ -6,7 +6,8 @@ port = {
 }
 
 mqtt = {
-  'ip': '192.168.1.2',
+  'host': '192.168.1.2',
+  'client_id': 'powerwalker',
   'auth': {'username':"powerwalker", 'password':"powerwalker"},
   'prefix': 'powerwalker'
 }
