@@ -47,7 +47,6 @@ sensor:
 
   - platform: template
     sensors:
-
       homelab_preferred:
         friendly_name: 'Homelab preferred source'
         value_template: >-
@@ -58,7 +57,6 @@ sensor:
           {% else %}
             fail
           {%- endif %}
-
       homelab_source:
         friendly_name: 'Homelab active source'
         value_template: >-
@@ -86,8 +84,10 @@ binary_sensor:
     value_template: "{{ value_json.bad }}"
     payload_on: "1"
     payload_off: "0"
+```
 
-
+### Switches
+```yaml
 switch:
 
   - platform: mqtt
