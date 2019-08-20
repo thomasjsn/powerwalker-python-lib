@@ -33,6 +33,9 @@ msgs = queue.Queue()
 # Queue for holding set commands
 q = queue.Queue()
 
+# Dict for alers
+alerts = {}
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -106,6 +109,7 @@ def get_pdu_status():
     }
 
     queue_msg('pdu/outlet/' + key, json.dumps(data))
+    alerts['pdu_' + key] = int(pdu_status['status'][key + '_status'] == 5)
 
   status_data = {
     'in_hz': pdu_status['in_freq'],
@@ -121,6 +125,16 @@ def get_pdu_status():
 
   queue_msg('pdu/status', json.dumps(status_data))
 
+  alert = 1 if pdu_status['status']['a01_low_in_voltage'] == 1 or \
+               pdu_status['status']['a02_high_in_voltage'] == 1 or \
+               pdu_status['status']['f09_low_in_current'] == 1 or \
+               pdu_status['status']['f10_high_in_current'] == 1 or \
+               pdu_status['status']['f11_pwr_fail_aux1'] == 1 or \
+               pdu_status['status']['f12_pwr_fail_aux2'] == 1 \
+               else 0
+
+  alerts['pdu'] = alert
+
 
 # Get defined status codes and bits from ATS
 def get_ats_status():
@@ -129,10 +143,12 @@ def get_ats_status():
     preferred = 'src2' if ats_status['status']['preferred_src2'] == 1 else 'src1'
 
     ats_status_bit = ats_status['status']
-    bad = '1' if ats_status_bit[key + '_freq_bad'] == 1 or \
-	         ats_status_bit[key + '_voltage_bad'] == 1 or \
-	         ats_status_bit[key + '_wave_bad'] == 1 \
-	         else '0'
+    bad = 1 if ats_status_bit[key + '_freq_bad'] == 1 or \
+	       ats_status_bit[key + '_voltage_bad'] == 1 or \
+	       ats_status_bit[key + '_wave_bad'] == 1 \
+	       else 0
+
+    alerts['ats_' + key] = bad
 
     data = {
       'v': ats_status[key + '_voltage'],
@@ -159,6 +175,17 @@ def get_ats_status():
   }
 
   queue_msg('ats/status', json.dumps(status_data))
+
+  alert = 1 if ats_status['status']['aux_pwr1_fail'] == 1 or \
+               ats_status['status']['aux_pwr2_fail'] == 1 or \
+               ats_status['status']['on_fault_mode'] == 1 or \
+               ats_status['status']['overload_alarm'] == 1 or \
+               ats_status['status']['overload_fault'] == 1 or \
+               ats_status['status']['short_fault'] == 1 or \
+               ats_status['status']['syncron_bad'] == 1 \
+               else 0
+
+  alerts['ats'] = alert
 
 
 client = mqtt.Client(cfg.mqtt['client_id'])
@@ -192,6 +219,9 @@ while True:
 
   # Parse data from ATS
   get_ats_status()
+
+  # Queue alerts as json string
+  queue_msg('alert', json.dumps(alerts))
 
   # Publish it to MQTT
   while not msgs.empty():
