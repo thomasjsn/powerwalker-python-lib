@@ -400,7 +400,7 @@ ats/status {"out_pct": 10.0, "overload_alarm": 0, "overload_fault": 0, "out_a": 
 * [Persistent names for usb-serial devices](http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/)
 
 # Author
-[Thomas Jensen](https://link.stdout.no/G)
+[Thomas Jensen](https://thomas.stdout.no)
 
 # Notices
 * PowerWalker is a brand of BlueWalker GmbH.
