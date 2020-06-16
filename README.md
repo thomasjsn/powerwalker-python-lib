@@ -23,6 +23,16 @@ pdu = powerwalker.PDU("/dev/ttyUSB0")
 ats = powerwalker.ATS("/dev/ttyUSB1")
 ```
 
+There's a chance that your device is not being recognized as usbserial. Therefore, you have to instantiate as usbhid device:
+
+```py
+import powerwalker
+
+pdu = powerwalker.PDU("/dev/hidraw0", usbhid=True)
+ats = powerwalker.ATS("/dev/hidraw1", usbhid=True)
+```
+
+
 # PowerWalker PDU RC-16A IEC
 ![PowerWalker PDU RC-16A IEC front](media/powerwalker_pdu_rc-16a_front.jpg)
 ![PowerWalker PDU RC-16A IEC back](media/powerwalker_pdu_rc-16a_back.jpg)

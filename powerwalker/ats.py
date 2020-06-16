@@ -2,9 +2,10 @@ from .pw_common import Powerwalker
 
 
 class ATS(Powerwalker):
-  def __init__(self, port):
+  def __init__(self, port, usbhid=False):
     self.port = port
     self.serial = None
+    self.usbhid = usbhid
     self.connect()
 
 
