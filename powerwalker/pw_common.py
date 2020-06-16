@@ -1,3 +1,6 @@
+import os
+import time
+
 import serial
 
 
@@ -5,20 +8,39 @@ class Powerwalker:
 
   def connect(self):
     """Connect to PDU device."""
-    self.serial = serial.Serial(
-      port=self.port,
-      baudrate=2400,
-      parity=serial.PARITY_NONE,
-      stopbits=serial.STOPBITS_ONE,
-      bytesize=serial.EIGHTBITS,
-      timeout=1
-    )
+    if self.usbhid:
+      self.fd = os.open(self.port, os.O_RDWR | os.O_NONBLOCK)
+    else:
+      self.serial = serial.Serial(
+        port=self.port,
+        baudrate=2400,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.EIGHTBITS,
+        timeout=1
+      )
 
 
   def send(self, cmd):
     """Send custom command."""
-    self.serial.write(bytes(cmd + '\r', 'utf-8'))
-    response = self.serial.readline()
+    if self.usbhid:
+      os.write(self.fd, bytes(cmd + '\r', 'utf-8'))
+      time.sleep(1)
+      response = b''
+      while True:
+        try:
+          c = os.read(self.fd, 8)
+        except BlockingIOError:
+          raise ValueError('blocking error')
+          break
+        else:
+          response += c
+          if b'\r' in c:
+            response = response.split(b'\r')[0]
+            break
+    else:
+      self.serial.write(bytes(cmd + '\r', 'utf-8'))
+      response = self.serial.readline()
 
     if response[0] != 40:
       raise ValueError('Response malformed')
