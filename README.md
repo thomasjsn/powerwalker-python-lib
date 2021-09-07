@@ -5,7 +5,7 @@ There was no Linux software available for the PowerWalker PDU and ATS, but the [
 
 ![PowerWalker PDU and ATS in my homelab](media/homelab_ats_pdu_front.jpg)
 
-I'm using a Raspberry Pi as a power manager in my [homelab](https://link.stdout.no/3), it is connected to both the PDU and ATS. It's best practice to have a single application responsible for communicating with the devices, as you will get communication errors if two applications tries to talk to the same device at the same time.
+I'm using a Raspberry Pi as a power manager in my [homelab](https://blog.cavelab.dev/homelab/), it is connected to both the PDU and ATS. It's best practice to have a single application responsible for communicating with the devices, as you will get communication errors if two applications tries to talk to the same device at the same time.
 
 I am using the `mqtt.py` script to publish ATS and PDU data on the MQTT network. Then you can have multiple clients subscribe to the respective MQTT topics, like [Home Assistant](https://home-assistant.io/). To visualize the data I use the [Home Assistant InfluxDB component](https://www.home-assistant.io/components/influxdb/), then [Grafana](https://grafana.com/) pulls the data from [InfluxDB](https://www.influxdata.com/) and makes [cool graphs](media/homelab_servers_grafana.jpg).
 
@@ -399,8 +399,11 @@ ats/status {"out_pct": 10.0, "overload_alarm": 0, "overload_fault": 0, "out_a": 
 # Useful resources
 * [Persistent names for usb-serial devices](http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/)
 
-# Author
-[Thomas Jensen](https://thomas.stdout.no)
+## Author
+**Thomas Jensen**
+* Twitter: [@thomasjsn](https://twitter.com/thomasjsn)
+* Github: [@thomasjsn](https://github.com/thomasjsn)
+* Website: [cavelab.dev](https://cavelab.dev)
 
 # Notices
 * PowerWalker is a brand of BlueWalker GmbH.
