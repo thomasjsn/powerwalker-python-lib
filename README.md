@@ -14,7 +14,10 @@ To make sure that the `mqtt.py` script keeps running; I'm using [Supervisor](htt
 **Note!** Methods and keys may change; as I am still investigating use cases and best practices.
 
 ## Communicate
-Connect either the USB or the serial port, find the correct device path and instantiate:
+
+Connect either the USB or the serial port, find the correct device path and instantiate.
+
+### Serial port
 
 ```py
 import powerwalker
@@ -22,6 +25,8 @@ import powerwalker
 pdu = powerwalker.PDU("/dev/ttyUSB0")
 ats = powerwalker.ATS("/dev/ttyUSB1")
 ```
+
+### USB HID device
 
 There's a chance that your device is not being recognized as usbserial. Therefore, you have to instantiate as usbhid device:
 
@@ -32,6 +37,13 @@ pdu = powerwalker.PDU("/dev/hidraw0", usbhid=True)
 ats = powerwalker.ATS("/dev/hidraw1", usbhid=True)
 ```
 
+Give regular users in the `dialout` group access to `hidraw` devices:
+
+Add this line to `/etc/udev/rules.d/99-com.rules`:
+
+    KERNEL=="hidraw*", GROUP=="dialout", MODE="0664"
+
+And run `sudo udevadm trigger`
 
 # PowerWalker PDU RC-16A IEC
 ![PowerWalker PDU RC-16A IEC front](media/powerwalker_pdu_rc-16a_front.jpg)
